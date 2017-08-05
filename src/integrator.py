@@ -84,7 +84,15 @@ def run_example_1(k_p):
 	length = 10
 	line = list(map(center_line_func, np.linspace(0, length, N)))
 	return Return_Graph(PIDcontroller, params, line, length, Time_Num)
+	
 
+def main(args):
+	N = 5
+	Time_Num = 10000
+	length = 10
+	line = list(map(center_line_func, np.linspace(0, length, N)))
+	Return_Graph(PIDcontroller, [10, 0, 0], line, length, Time_Num)
+	plt.show()
 
 if __name__ == '__main__':
     import sys
