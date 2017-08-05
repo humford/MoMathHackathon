@@ -25,7 +25,7 @@
 from math import *
 import numpy as np
 
-max_rate = 3
+max_rate = 6.28
 
 def sign(x):
 	if x >= 0:
@@ -61,7 +61,7 @@ def get_error(x, y, theta, v, interror, line):
 
 
 def car_rate_of_change_function(controller, params, line):
-	return lambda y, t : (y[3]*cos(y[2]), y[3]*sin(y[2]), max_rate*tanh(controller(y[0], y[1], y[2], y[3], y[4], params, line)), 0, get_error(y[0], y[1], y[2], y[3], y[4], line)[0])
+	return lambda y, t : (y[3]*cos(y[2]), y[3]*sin(y[2]), y[3]*max_rate*tanh(controller(y[0], y[1], y[2], y[3], y[4], params, line)), 0, get_error(y[0], y[1], y[2], y[3], y[4], line)[0])
 
 
 def main(args):

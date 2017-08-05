@@ -24,10 +24,14 @@
 
 from math import *
 from scipy.integrate import odeint 
+from scipy.misc import imread
 from controllers import *
 import numpy as np
 from matplotlib import pyplot as plt
+import matplotlib.patheffects as pe
 from time import time
+
+
 
 def project(arr, i):
 	return list(map(lambda x: x[i], arr))
@@ -42,12 +46,12 @@ def Return_Graph(controller, params, line, t_max, N):
 	print("Time: " + str(time() - start))
 	lables = ["x", "y", r"$\theta$", "v", r"$\int error$"]
 	
-	fig = plt.figure()
+	fig = plt.figure(facecolor='#576b0f')
 	ax = fig.add_subplot(111)
-	ax.plot(project(line, 0), project(line, 1), label = "center line")
-	ax.plot(project(sol, 0), project(sol, 1), label = "path")
-	ax.legend()
-
+	ax.plot(project(line, 0), project(line, 1), label = "center line", linewidth = 50, color = 'k',  path_effects=[pe.Stroke(linewidth = 53, foreground='w'), pe.Normal()])
+	ax.plot(project(line, 0), project(line, 1), label = "center line", linewidth = 5, linestyle = "--", color = 'y')
+	ax.plot(project(sol, 0), project(sol, 1), label = "path", color = 'red')
+	ax.axis('off')
 	return ax
 
 def Show_Debug_Stats(controller, params, line, t_max, N):
@@ -76,8 +80,8 @@ def main(args):
 	Time_Num = 10000
 	length = 1
 	line = list(map(center_line_func, np.linspace(0, length, N)))
-	Return_Graph(PIDcontroller, [100, 5, 5], line, length*2, Time_Num)
-
+	Return_Graph(PIDcontroller, [100, 2, 5], line, length*2, Time_Num)
+	plt.show()
 
 if __name__ == '__main__':
     import sys
