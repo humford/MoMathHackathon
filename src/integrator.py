@@ -51,6 +51,8 @@ def Return_Graph(controller, params, line, t_max, N):
 	ax.plot(project(line, 0), project(line, 1), label = "center line", linewidth = 50, color = 'k',  path_effects=[pe.Stroke(linewidth = 53, foreground='w'), pe.Normal()])
 	ax.plot(project(line, 0), project(line, 1), label = "center line", linewidth = 5, linestyle = "--", color = 'y')
 	ax.plot(project(sol, 0), project(sol, 1), label = "path", color = 'red')
+	ax.set_xlim([-1, t_max + 1])
+	ax.set_ylim([-0.5, 1.5])
 	ax.axis('off')
 	return ax
 
@@ -73,15 +75,16 @@ def Show_Debug_Stats(controller, params, line, t_max, N):
 	plt.show()
 
 def center_line_func(x):
-	return (x, 1/(1 + exp(-(10*x-5))))
-
-def main(args):
-	N = 25
-	Time_Num = 10000
-	length = 1
+	return np.array([x, 1/(1 + exp(-(2*(x-5))))])
+	
+def run_example_1(k_p):
+	params = [k_p, 0, 0]
+	N = 5
+	Time_Num = 1000
+	length = 10
 	line = list(map(center_line_func, np.linspace(0, length, N)))
-	Return_Graph(PIDcontroller, [100, 2, 5], line, length*2, Time_Num)
-	plt.show()
+	return Return_Graph(PIDcontroller, params, line, length, Time_Num)
+
 
 if __name__ == '__main__':
     import sys

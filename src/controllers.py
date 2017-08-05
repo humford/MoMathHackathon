@@ -35,24 +35,35 @@ def sign(x):
 
 def PIDcontroller(x, y, theta, v, interror, params, line):
 	return np.dot(get_error(x, y, theta, v, interror, line), params)
+	
+def sq_dist(a, b):
+	return sum((a-b)**2)
+	
+def projection(v, w, p):
+	l2 = sq_dist(v, w)
+	if l2 == 0:
+		return v
+	else:
+		t = max(0, min(1, np.dot(p - v, w - v)/l2))
+		return v + t*(w - v)
 
-def get_dist(x, y, p):
-	return sqrt((x - p[0])**2 + (y - p[1])**2)
+def minimum_distance(v, w, p):
+	return sq_dist(p, projection(v, w, p))
 
 def get_error(x, y, theta, v, interror, line):
 	
-	best_dist = get_dist(x, y, line[0])
+	my_pos = np.array([x, y])
+	best_dist = sq_dist(my_pos, line[0])
 	best_i = 0
 	
-	for i in range(0, len(line)):
-		d = get_dist(x, y, line[i])
+	for i in range(0, len(line)-1):
+		d = minimum_distance(line[i], line[i+1], my_pos)
 		if d < best_dist:
 			best_i = i
 			best_dist = d
 			
-
-	p = line[best_i]
-	dist = get_dist(x, y, p)
+	p = projection(line[best_i], line[best_i+1], my_pos)
+	dist = sqrt(minimum_distance(line[best_i], line[best_i+1], my_pos))
 
 	if dist == 0:
 		return [0, interror, v]
