@@ -36,27 +36,23 @@ def sign(x):
 def PIDcontroller(x, y, theta, v, interror, params, line):
 	return np.dot(get_error(x, y, theta, v, interror, line), params)
 
-def d_to_line(x, y, p0, p1):
-	return abs((p1[1] - p0[1])*x + (p1[0] - p0[0])*y - (p1[1] - p0[1])*p0[0] - (p1[0] - p0[0])*p0[1])/sqrt((p1[0] - p0[0])**2 + (p1[1] - p0[1])**2)
+def get_dist(x, y, p):
+	return sqrt((x - p[0])**2 + (y - p[1])**2)
 
 def get_error(x, y, theta, v, interror, line):
-	i = np.argmin(list(map(lambda p : sqrt((x - p[0])**2 + (y - p[1])**2), line)))
+	
+	best_dist = get_dist(x, y, line[0])
+	best_i = 0
+	
+	for i in range(0, len(line)):
+		d = get_dist(x, y, line[i])
+		if d < best_dist:
+			best_i = i
+			best_dist = d
+			
 
-	p = line[i]
-
-	if i == 0:
-		p1 = line[i+1]
-		dist = d_to_line(x, y, p, p1)
-
-	elif i == len(line) - 1:
-		p2 = line[i-1]
-		dist = d_to_line(x, y, p, p2)
-
-	else:
-		p1, p2 = line[i-1], line[i+1]
-		dist = d_to_line(x, y, p1, p2)
-
-	dist = sqrt((x - p[0])**2 + (y - p[1])**2)
+	p = line[best_i]
+	dist = get_dist(x, y, p)
 
 	if dist == 0:
 		return [0, interror, v]

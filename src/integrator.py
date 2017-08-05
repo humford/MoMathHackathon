@@ -27,14 +27,37 @@ from scipy.integrate import odeint
 from controllers import *
 import numpy as np
 from matplotlib import pyplot as plt
+from time import time
 
 def project(arr, i):
 	return list(map(lambda x: x[i], arr))
 
-def Return_Integration(controller, params, line, t_max, N):
+def Return_Graph(controller, params, line, t_max, N):
 	y0 = [0, 0, 0, 1, 0]
 	t = np.linspace(0, t_max, N)
-	sol = odeint(car_rate_of_change_function(controller, params, line), y0, t)
+	
+	start = time()
+	func = car_rate_of_change_function(controller, params, line)
+	sol = odeint(func, y0, t)
+	print("Time: " + str(time() - start))
+	lables = ["x", "y", r"$\theta$", "v", r"$\int error$"]
+	
+	fig = plt.figure()
+	ax = fig.add_subplot(111)
+	ax.plot(project(line, 0), project(line, 1), label = "center line")
+	ax.plot(project(sol, 0), project(sol, 1), label = "path")
+	ax.legend()
+
+	return ax
+
+def Show_Debug_Stats(controller, params, line, t_max, N):
+	y0 = [0, 0, 0, 1, 0]
+	t = np.linspace(0, t_max, N)
+	
+	start = time()
+	func = car_rate_of_change_function(controller, params, line)
+	sol = odeint(func, y0, t)
+	print("Time: " + str(time() - start))
 	lables = ["x", "y", r"$\theta$", "v", r"$\int error$"]
 
 	for i in range(5):
@@ -42,26 +65,18 @@ def Return_Integration(controller, params, line, t_max, N):
 			plt.plot(t, project(sol, i), label = lables[i])
 
 	plt.plot(t, list(map(lambda x: get_error(x[0], x[1], x[2], x[3], x[4], line)[0], sol)), label = "error")
-	plt.legend()
-
-	plt.figure()
-	plt.plot(project(line, 0), project(line, 1), label = "center line")
-	plt.plot(project(sol, 0), project(sol, 1), label = "path")
-	plt.legend()
-	plt.plot()
+	p = plt.legend()
 	plt.show()
-
-	return t, sol
 
 def center_line_func(x):
 	return (x, 1/(1 + exp(-(10*x-5))))
 
 def main(args):
-	N = 100
-	Time_Num = 1000
+	N = 25
+	Time_Num = 10000
 	length = 1
 	line = list(map(center_line_func, np.linspace(0, length, N)))
-	Return_Integration(PIDcontroller, [100, 10, 5], line, length*2, Time_Num)
+	Return_Graph(PIDcontroller, [100, 5, 5], line, length*2, Time_Num)
 
 
 if __name__ == '__main__':
