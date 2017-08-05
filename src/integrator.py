@@ -39,7 +39,7 @@ def project(arr, i):
 def Return_Graph(controller, params, line, t_max, N):
 	y0 = [0, 0, 0, 1, 0]
 	t = np.linspace(0, t_max, N)
-	
+
 	start = time()
 	func = car_rate_of_change_function(controller, params, line)
 	sol = odeint(func, y0, t)
@@ -59,7 +59,7 @@ def Return_Graph(controller, params, line, t_max, N):
 def Show_Debug_Stats(controller, params, line, t_max, N):
 	y0 = [0, 0, 0, 1, 0]
 	t = np.linspace(0, t_max, N)
-	
+
 	start = time()
 	func = car_rate_of_change_function(controller, params, line)
 	sol = odeint(func, y0, t)

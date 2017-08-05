@@ -5,6 +5,9 @@
     <link src='/public/css/jumbotron-narrow.css' rel='stylesheet'>
     <link href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.8.1/css/bootstrap-slider.min.css' rel='stylesheet'>
     <link src='/public/css/index.css' rel='stylesheet'>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.8.1/bootstrap-slider.min.js'></script>
   </head>
   <body>
     <div class='container'>
@@ -20,7 +23,9 @@
               <h3 class="panel-title">Panel title</h3>
             </div>
             <div class="panel-body">
-              <input id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="14"/>
+              <div id="example-1-results"></div>
+              <!-- <a href="javascript:void();" id="example-1">🔄</a> -->
+              <a href="javascript:void();" id="example-1"><input name="example-1" id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="10"/></a>
             </div>
           </div>
           <footer class='footer'>
@@ -33,15 +38,24 @@
         </div>
       </div>
     </div>
-    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.8.1/bootstrap-slider.min.js'></script>
     <script>
-// With JQuery
-$('#ex1').slider({
-	formatter: function(value) {
-		return 'Current value: ' + value;
-	}
-});</script>
+    // With JQuery
+    $('#ex1').slider({
+	     formatter: function(value) {
+		       return 'Current value: ' + value;
+	        }
+        });</script>
+    <script type=text/javascript>
+    $(function() {
+      $('a#example-1').bind('mouseleave', function() {
+        $.get('/_example-1', {
+          a: $('#ex1').slider('getValue')
+        }, function(data) {
+          $("#example-1-results").html(data);
+        });
+        return false;
+      });
+    });
+  </script>
   </body>
 </html>
