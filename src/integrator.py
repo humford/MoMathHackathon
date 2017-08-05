@@ -24,7 +24,7 @@
 
 from math import *
 from scipy.integrate import odeint 
-from controlers import *
+from controllers import *
 import numpy as np
 from matplotlib import pyplot as plt
 
