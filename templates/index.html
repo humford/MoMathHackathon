@@ -1,22 +1,47 @@
 <!DOCTYPE html>
 <html lang='en'>
   <head>
-    <link href='https://bootswatch.com/journal/bootstrap.min.css' rel='stylesheet'>
-    <link href='public/css/jumbotron-narrow.css' rel='stylesheet'>
+    <link href='https://bootswatch.com/lumen/bootstrap.min.css' rel='stylesheet'>
+    <link src='/public/css/jumbotron-narrow.css' rel='stylesheet'>
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.8.1/css/bootstrap-slider.min.css' rel='stylesheet'>
+    <link src='/public/css/index.css' rel='stylesheet'>
   </head>
   <body>
     <div class='container'>
-      <div class='header clearfix'>
-        <nav></nav>
-        <h3 class='text-muted'>MoMath Hackathon - Control Theory</h3>
+      <div class='row'>
+        <div class='col-lg-1'>
+        </div>
+        <div class='col-lg-10'>
+          <div class='page-header'>
+            <h3 class='text-muted'>MoMath Hackathon - Control Theory</h3>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Panel title</h3>
+            </div>
+            <div class="panel-body">
+              <input id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="14"/>
+            </div>
+          </div>
+          <footer class='footer'>
+            <p>
+              &copy;<a href='https://www.github.com/humford'> Henry Williams</a> and<a href='https://github.com/benvchurch'> Benjamin Church</a>
+            </p>
+          </footer>
+        </div>
+        <div class='col-lg-1'>
+        </div>
       </div>
-      <footer class='footer'>
-        <p>
-          &copy;<a href='https://www.github.com/humford'> Henry Williams</a> and<a href='https://github.com/benvchurch'> Benjamin Church</a>
-        </p>
-      </footer>
     </div>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>
-    <script src='public/js/bootstrap.min.js'></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.8.1/bootstrap-slider.min.js'></script>
+    <script>
+// With JQuery
+$('#ex1').slider({
+	formatter: function(value) {
+		return 'Current value: ' + value;
+	}
+});</script>
   </body>
 </html>
