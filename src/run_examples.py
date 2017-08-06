@@ -150,7 +150,7 @@ def run_example_NULL():
 
 def run_example_0(k_c):
 	if not "kc:" + str(k_c) in examples_dics:
-		params = [k_c/15, 0, 0]
+		params = [k_c, 0, 0]
 		t_max = 20
 		center_line_func = lambda x : np.array([x, 6/(1 + exp(-(8*(x-5))))])
 		line = list(map(center_line_func, np.linspace(0, length, N)))
