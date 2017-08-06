@@ -69,7 +69,7 @@ def projection(v, w, p):
 
 def minimum_distance(v, w, p):
 	return sq_dist(p, projection(v, w, p))
-	
+
 def cross(a, b):
 	return a[0]*b[1] - a[1]*b[0]
 
@@ -87,7 +87,7 @@ def get_error(x, y, theta, v, interror, line):
 
 	p = projection(line[best_i], line[best_i+1], my_pos)
 	dist = sqrt(minimum_distance(line[best_i], line[best_i+1], my_pos))
-	
+
 	v_unit_vec = np.array([cos(theta), sin(theta)])
 
 	if dist == 0:
@@ -98,7 +98,7 @@ def get_error(x, y, theta, v, interror, line):
 			err = dist*sign(c)*pow(abs(c), 0.25)
 		else:
 			err = dist*sign(c)
-		
+
 	return [err, interror, sign(err)*v*np.dot((my_pos - p), v_unit_vec)]
 
 
@@ -177,7 +177,7 @@ def run_example_2(k_i):
 		examples_dics["ki:" + str(k_i)] = Graph(PIDcontroller, params, line, t_max, Time_Num, np.array([0,0]))
 		print("DID CALC")
 	return examples_dics["ki:" + str(k_i)]
-	
+
 def run_example_3(k_d):
 	if not "kd:" + str(k_d) in examples_dics:
 		params = [10, 0, k_d]
@@ -194,7 +194,7 @@ def run_example_4(k_p, k_i, k_d):
 	center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
 	line = list(map(center_line_func, np.linspace(0, length, N)))
 	return Graph(PIDcontroller, params, line, t_max, Time_Num, np.array([0,0]))
-	
+
 def run_example_play(k_p, k_i, k_d, mouse_x, mouse_y):
 	params = [k_p, k_i, k_d]
 	t_max = 16
@@ -203,11 +203,12 @@ def run_example_play(k_p, k_i, k_d, mouse_x, mouse_y):
 	return Graph(PIDcontroller, params, line, t_max, Time_Num, np.array([mouse_x, mouse_y]))
 
 def startup_calculations():
-	for k_c in np.linspace(0, 2, 10)
+	for k_c in np.linspace(0, 2, 10):
 		run_example_0(k_c)
-	for k_p in np.linspace(0, 10, 10)
+	for k_p in np.linspace(0, 10, 10):
 		run_example_1(k_p)
-	for k_i in np.linspace(0, 2, 10)
+	for k_i in np.linspace(0, 2, 10):
 		run_example_2(k_i)
-	for k_d in np.linspace(0, 20, 10)
+	for k_d in np.linspace(0, 20, 10):
 		run_example_3(k_d)
+	print("SETUP COMPLETE")

@@ -15,17 +15,17 @@ def exampleNULL():
 
 @app.route('/_example-0')
 def example0():
-	a = request.args.get('a', 10, type=int)
+	a = request.args.get('a', 0.6, type=int)
 	return mpld3.fig_to_html(run_example_0(a))
 
 @app.route('/_example-1')
 def example1():
-	a = request.args.get('a', 10, type=int)
+	a = request.args.get('a', 5, type=int)
 	return mpld3.fig_to_html(run_example_1(a))
 
 @app.route('/_example-2')
 def example2():
-	a = request.args.get('a', 10, type=int)
+	a = request.args.get('a', 0.2, type=int)
 	return mpld3.fig_to_html(run_example_2(a))
 
 @app.route('/_example-3')
@@ -35,10 +35,26 @@ def example3():
 
 @app.route('/_example-4')
 def example4():
-	a = request.args.get('a', 10, type=int)
-	b = request.args.get('b', 10, type=int)
+	a = request.args.get('a', 5, type=int)
+	b = request.args.get('b', 0.2, type=int)
 	c = request.args.get('c', 10, type=int)
 	return mpld3.fig_to_html(run_example_4(a,b,c))
+
+@app.route('/_example-5')
+def example5():
+	a = request.args.get('a', 5, type=int)
+	b = request.args.get('b', 0.2, type=int)
+	c = request.args.get('c', 10, type=int)
+	x = request.args.get('x', None, type=int)
+	y = request.args.get('y', None, type=int)
+	if x == None or y == None:
+		pass
+	return mpld3.fig_to_html(run_example_play(a,b,c,x,y))
+
+@app.before_first_request
+def setup():
+	startup_calculations()
+	pass
 
 if __name__ == "__main__":
 	app.run()
