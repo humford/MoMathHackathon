@@ -170,7 +170,7 @@ def run_example_1(k_p):
 
 def run_example_2(k_i):
 	if not "ki:" + str(k_i) in examples_dics:
-		params = [10, k_i/20, 0]
+		params = [10, k_i, 0]
 		t_max = 17
 		center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
 		line = list(map(center_line_func, np.linspace(0, length, N)))
@@ -180,7 +180,7 @@ def run_example_2(k_i):
 	
 def run_example_3(k_d):
 	if not "kd:" + str(k_d) in examples_dics:
-		params = [10, 0, 2*k_d]
+		params = [10, 0, k_d]
 		t_max = 16
 		center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
 		line = list(map(center_line_func, np.linspace(0, length, N)))
@@ -189,18 +189,25 @@ def run_example_3(k_d):
 	return examples_dics["kd:" + str(k_d)]
 
 def run_example_4(k_p, k_i, k_d):
-	params = [k_p, k_i/20, 2*k_d]
+	params = [k_p, k_i, k_d]
 	t_max = 16
 	center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
 	line = list(map(center_line_func, np.linspace(0, length, N)))
 	return Graph(PIDcontroller, params, line, t_max, Time_Num, np.array([0,0]))
 	
 def run_example_play(k_p, k_i, k_d, mouse_x, mouse_y):
-	params = [k_p, k_i/20, 2*k_d]
-	N = 10
-	Time_Num = 10000
-	length = 10
+	params = [k_p, k_i, k_d]
 	t_max = 16
 	center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
 	line = list(map(center_line_func, np.linspace(0, length, N)))
 	return Graph(PIDcontroller, params, line, t_max, Time_Num, np.array([mouse_x, mouse_y]))
+
+def startup_calculations():
+	for k_c in np.linspace(0, 2, 10)
+		run_example_0(k_c)
+	for k_p in np.linspace(0, 10, 10)
+		run_example_0(k_p)
+	for k_i in np.linspace(0, 2, 10)
+		run_example_0(k_i)
+	for k_d in np.linspace(0, 20, 10)
+		run_example_0(k_d)
