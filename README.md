@@ -27,10 +27,12 @@ We have provided two methods of interfacing with our web app:
 2. A Python Flask server to be run on either a users computer or a computer hosting an exhibit
 
 To host the server locally:
-``` git clone [this repo]
+``` 
+git clone [this repo]
 cd MoMathHackathon
 pip install -r requirements.txt
-python app.py```
+python app.py
+```
 
 ### Potential Exhibit
 
