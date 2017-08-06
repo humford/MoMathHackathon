@@ -7,6 +7,8 @@
     <link href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.8.1/css/bootstrap-slider.min.css' rel='stylesheet'>
     <link src='/public/css/index.css' rel='stylesheet'>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>
+<!--     <script src="http://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script> 
+ -->    
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.8.1/bootstrap-slider.min.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.0.0/anchor.min.js"></script>
@@ -334,6 +336,19 @@
         return false;
       });
     });
+  $(function() {
+    $('ex0Slider').slider();
+    $('ex0Slider').bind("slide", function(slideEvt) {
+      $.get('/_example-0', {
+          a: slideEvt.value,
+          r: $('#ex0-road').slider('getValue')
+        }, function(data) {
+          $("#example-0-results").html(data);
+          $("#example-0-latex").attr("src", "http://latex.codecogs.com/svg.latex?p_{steer}(err) = \\begin{cases}   ".concat($('#ex0').slider('getValue'), ",& \\text{if } err(t) \\geq d_{road}\\\\    0,              & \\text{otherwise} \\end{cases}"));
+        });
+        return false;
+    });
+  });
 
     $(function() {
       $('a#example-1, a#example-1-road').bind('click', function() {
