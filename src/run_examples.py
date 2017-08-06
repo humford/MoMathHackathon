@@ -2,29 +2,28 @@
 # -*- coding: utf-8 -*-
 #
 #  run_examples.py
-#  
+#
 #  Copyright 2017 Benjamin Church <ben@U430>
-#  
+#
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
 #  the Free Software Foundation; either version 2 of the License, or
 #  (at your option) any later version.
-#  
+#
 #  This program is distributed in the hope that it will be useful,
 #  but WITHOUT ANY WARRANTY; without even the implied warranty of
 #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #  GNU General Public License for more details.
-#  
+#
 #  You should have received a copy of the GNU General Public License
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #  MA 02110-1301, USA.
-#  
-#  
+#
+#
 
 from math import *
-from scipy.integrate import odeint 
-from scipy.misc import imread
+from scipy.integrate import odeint
 import numpy as np
 from matplotlib import pyplot as plt
 import matplotlib.patheffects as pe
@@ -51,10 +50,10 @@ def CRAPcontroller(x, y, theta, v, interror, params, line):
 
 def PIDcontroller(x, y, theta, v, interror, params, line):
 	return np.dot(get_error(x, y, theta, v, interror, line), params)
-	
+
 def sq_dist(a, b):
 	return sum((a-b)**2)
-	
+
 def projection(v, w, p):
 	l2 = sq_dist(v, w)
 	if l2 == 0:
@@ -67,17 +66,17 @@ def minimum_distance(v, w, p):
 	return sq_dist(p, projection(v, w, p))
 
 def get_error(x, y, theta, v, interror, line):
-	
+
 	my_pos = np.array([x, y])
 	best_dist = sq_dist(my_pos, line[0])
 	best_i = 0
-	
+
 	for i in range(0, len(line)-1):
 		d = minimum_distance(line[i], line[i+1], my_pos)
 		if d < best_dist:
 			best_i = i
 			best_dist = d
-			
+
 	p = projection(line[best_i], line[best_i+1], my_pos)
 	dist = sqrt(minimum_distance(line[best_i], line[best_i+1], my_pos))
 
@@ -103,14 +102,19 @@ def my_odeint(func, y0, t):
 def Graph(controller, params, line, t_max, N, initial_pos):
 	y0 = np.array([0, 0, 0, 1, 0])
 	t = np.linspace(0, t_max, N)
-	
+
 	start = time()
 	func = car_rate_of_change_function(controller, params, line)
 	sol = my_odeint(func, y0, t)
 	print("Time: " + str(time() - start))
 	lables = ["x", "y", r"$\theta$", "v", r"$\int error$"]
+<<<<<<< HEAD
 	
 	fig = plt.figure(facecolor='#576b0f', figsize = (10,10))
+=======
+
+	fig = plt.figure(facecolor='#576b0f')
+>>>>>>> 0abf6a404b9641624bc6f8e5826f7c9d56c9275a
 	ax = fig.add_subplot(111)
 	ax.plot(project(line, 0), project(line, 1), label = "center line", linewidth = 50, color = 'k',  path_effects=[pe.Stroke(linewidth = 53, foreground='w'), pe.Normal()])
 	ax.plot(project(line, 0), project(line, 1), label = "center line", linewidth = 3, linestyle = "--", color = 'y')
@@ -118,9 +122,19 @@ def Graph(controller, params, line, t_max, N, initial_pos):
 	ax.set_xlim([-1.5, 11.30])
 	ax.set_ylim([-1.5, 7.5])
 	ax.axis('off')
-	return ax
+	return fig
 
+def Show_Debug_Stats(controller, params, line, t_max, N):
+	y0 = [0, 0, 0, 1, 0]
+	t = np.linspace(0, t_max, N)
 
+	start = time()
+	func = car_rate_of_change_function(controller, params, line)
+	sol = odeint(func, y0, t)
+	print("Time: " + str(time() - start))
+	lables = ["x", "y", r"$\theta$", "v", r"$\int error$"]
+
+<<<<<<< HEAD
 def run_example_1(k_c):
 	params = [k_c, 0, 0]
 	N = 10
@@ -133,6 +147,12 @@ def run_example_1(k_c):
 	return Graph(CRAPcontroller, params, line, t_max, Time_Num, np.array([0,0]))
 
 def run_example_2(k_p):
+=======
+def center_line_func(x):
+	return np.array([x, 1/(1 + exp(-(2*(x-5))))])
+
+def run_example_1(k_p):
+>>>>>>> 0abf6a404b9641624bc6f8e5826f7c9d56c9275a
 	params = [k_p, 0, 0]
 	N = 10
 	Time_Num = 1000
@@ -152,5 +172,9 @@ def run_example_3(k_i):
 	center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
 	
 	line = list(map(center_line_func, np.linspace(0, length, N)))
+<<<<<<< HEAD
 	return Graph(PIDcontroller, params, line, t_max, Time_Num, np.array([0,0]))
 	
+=======
+	return Return_Graph(PIDcontroller, params, line, length, Time_Num)
+>>>>>>> 0abf6a404b9641624bc6f8e5826f7c9d56c9275a

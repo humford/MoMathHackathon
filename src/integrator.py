@@ -44,11 +44,8 @@ def Show_Debug_Stats(controller, params, line, t_max, N):
 
 
 def main(args):
-	N = 5
-	Time_Num = 10000
-	length = 10
-	line = list(map(center_line_func, np.linspace(0, length, N)))
-	Graph(PIDcontroller, [10, 0, 0], line, length, Time_Num, np.array([0,0]))
+	run_example_1(1)
+	plt.savefig("road.png")
 	plt.show()
 
 if __name__ == '__main__':

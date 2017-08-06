@@ -1,2 +1,7 @@
 flask
 gunicorn
+scipy
+numpy
+matplotlib
+mpld3
+heroku
