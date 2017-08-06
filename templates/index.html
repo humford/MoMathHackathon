@@ -120,6 +120,7 @@
 
     <script type=text/javascript>
     $(document).ready(function() {
+      $.get('/_example-null', {}, function(data) {$("#example-null-results").html(data);});
       $.get('/_example-0', {}, function(data) {$("#example-0-results").html(data);});
       $.get('/_example-1', {}, function(data) {$("#example-1-results").html(data);});
       $.get('/_example-2', {}, function(data) {$("#example-2-results").html(data);});

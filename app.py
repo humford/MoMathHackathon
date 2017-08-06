@@ -9,6 +9,10 @@ app = Flask(__name__)
 def index():
 	return render_template("index.html")
 
+@app.route('/_example-null')
+def exampleNULL():
+	return mpld3.fig_to_html(run_example_NULL())
+
 @app.route('/_example-0')
 def example0():
 	a = request.args.get('a', 10, type=int)
