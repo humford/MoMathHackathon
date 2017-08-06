@@ -53,10 +53,25 @@
               <h2 class="panel-title">Driving with Math!</h2>
             </div>
             <div class="panel-body">
+              <p>
+                The simplest strategy is to decide your course by turning back towards the road whenever the car drifts off.
+                This strategy succeeds in following slightly curved roads, but the more unpredictable the road, the worse the
+                car is at staying on track. Since the car only cares about getting back on the road, it reconnect with the road
+                at such a steep angle that it will go off the other edge, causing it to weave back and forth.
+              </p>
+              <p>
+                In the simulation below, you can move the slider at the top to change the bend in the road, and use the slider
+                at the bottom to determine the angle at which the car turns back onto the road. Play around and see for yourself
+                the limitations of this strategy.
+              </p>
               Road curve: &nbsp;&nbsp;&nbsp;<a href="javascript:void();" id="example-0-road"><input name="example-0-road" id="ex0-road" data-slider-id='ex0RoadSlider' type="text" data-slider-min="0" data-slider-max="6" data-slider-step="1" data-slider-value="0"/></a>
               <div id="example-0-results"></div>
               <div class="well"><img id="example-0-latex" src="http://latex.codecogs.com/svg.latex?p_{steer}(err) = \begin{cases}    k,& \text{if } err(t) \geq d_{road}\\    0,              & \text{otherwise} \end{cases}" border="0"/></div>
               Angle of turn: &nbsp;&nbsp;&nbsp;<a href="javascript:void();" id="example-0"><input name="example-0" id="ex0" data-slider-id='ex0Slider' type="text" data-slider-min="0" data-slider-max="2" data-slider-step="0.2" data-slider-value="0.6"/></a>
+              <p>
+                In mathematical symbols, this strategy is expressed by the power in steering given an error
+                (i.e. the distance of the car from the road).
+              </p>
             </div>
           </div>
 
@@ -65,10 +80,24 @@
               <h2 class="panel-title">Proportional Turning</h2>
             </div>
             <div class="panel-body">
+              <p>
+                Instead of always steering back at the same angle, we can tell our car to steer back towards the road at an angle
+                proportional to its distance away from it. We call this "proportional turning". This allows the car to steer at a
+                less steep angle when it has nearly come back to the road reducing the chance of overshooting. However, this strategy
+                can't escape the fact that once the car reaches the center, it still needs to turn along with the road to prevent going
+                off again.
+              </p>
+              <p>
+                In the simulation below, the top slider again represents the bend in the road and the bottom one the sensitivity to
+                distance from the target.
+              </p>
               Road curve: &nbsp;&nbsp;&nbsp;<a href="javascript:void();" id="example-1-road"><input name="example-1-road" id="ex1-road" data-slider-id='ex1RoadSlider' type="text" data-slider-min="0" data-slider-max="6" data-slider-step="1" data-slider-value="0"/></a>
               <div id="example-1-results"></div>
               <div class="well"><img id="example-1-latex" src="http://latex.codecogs.com/svg.latex?        p_{steer}(err) = k_p \cdot err(t)" border="0"/></div>
               Sensitivity to error: &nbsp;&nbsp;&nbsp;<a href="javascript:void();" id="example-1"><input name="example-1" id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="5"/></a>
+              <p>
+                In mathematical symbols, this strategy is expressed by the sensitivity multiplied by the distance from the road.
+              </p>
             </div>
           </div>
 
@@ -77,10 +106,22 @@
               <h2 class="panel-title">Summative Turning</h2>
             </div>
             <div class="panel-body">
+              <p>
+                This time, we can also tell the car if it is consistently off to one side, making it turn towards the other. This
+                information is captured by the sum of the errors over time. We call this "summative turning" We allow the car to use this new variable as another
+                factor in determining its steering.
+              </p>
+              <p>
+                Consider why the sum term doesn't signifigantly change the motion.
+              </p>
               Road curve: &nbsp;&nbsp;&nbsp;<a href="javascript:void();" id="example-2-road"><input name="example-2-road" id="ex2-road" data-slider-id='ex2RoadSlider' type="text" data-slider-min="0" data-slider-max="6" data-slider-step="1" data-slider-value="0"/></a>
               <div id="example-2-results"></div>
               <div class="well"><img id="example-2-latex" src="http://latex.codecogs.com/svg.latex?        p_{steer}(err) = k_p \cdot err(t)\: + \: k_i \cdot \int_0^{t} \! err(t') \: \mathrm{d}t' " border="0"/></div>
               Sensitivity to summative: &nbsp;&nbsp;&nbsp;<a href="javascript:void();" id="example-2"><input name="example-2" id="ex2" data-slider-id='ex2Slider' type="text" data-slider-min="0" data-slider-max="1" data-slider-step="0.2" data-slider-value="0.2"/></a>
+              <p>
+                This sum is represented by the mathematical operation called an "integral," represented by the large letter "S" for
+                sum. We combine this with our proportional turning, with a set sensitivity for this simulation.
+              </p>
             </div>
           </div>
 
@@ -89,24 +130,46 @@
               <h2 class="panel-title">Differential Turning</h2>
             </div>
             <div class="panel-body">
+              <p>
+                A further piece of important information is how quickly the distance to the road is changing. Essentially, is the car
+                moving towards or away from the road. If the car is moving away from the road, turning in is more important than it would
+                be if the care were already headed back towards the road. We call this "differential turning".
+              </p>
+              <p>
+                Notice how the line the car follows is much smoother with this differential term.
+              </p>
               Road curve: &nbsp;&nbsp;&nbsp;<a href="javascript:void();" id="example-3-road"><input name="example-3-road" id="ex3-road" data-slider-id='ex3RoadSlider' type="text" data-slider-min="0" data-slider-max="6" data-slider-step="1" data-slider-value="0"/></a>
               <div id="example-3-results"></div>
               <div class="well"><img id="example-3-latex" src="http://latex.codecogs.com/svg.latex?        p_{steer}(err) = k_p \cdot err(t) \: + \: k_d \cdot \frac{d}{dt} err(t) " border="0"/></div>
               Sensitivity to differential: &nbsp;&nbsp;&nbsp;<a href="javascript:void();" id="example-3"><input name="example-3" id="ex3" data-slider-id='ex3Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="2" data-slider-value="10"/></a>
+              <p>
+                This is represented by the mathematical operation called a "derivative," which represents small changes in a value. This
+                is again combined with our proportional turning.
+              </p>
             </div>
           </div>
 
           <div class="panel panel-info">
             <div class="panel-heading">
-              <h2 class="panel-title">Proportional - Integral - Derivative</h2>
+              <h2 class="panel-title">Proportional - Integral - Derivative Controller</h2>
             </div>
             <div class="panel-body">
+              <p>
+                Proportional - Integral - Derivative, or PID, is the combination of all three of the methods we've looked at. This is a
+                simple yet powerful tool with many real world applications from robotics to temperature control and more.
+              </p>
+              <p>
+                Try reducing one of the factors to 0 while trying to hold a stable path.
+              </p>
               Road curve: &nbsp;&nbsp;&nbsp;<a href="javascript:void();" id="example-4-road"><input name="example-4-road" id="ex4-road" data-slider-id='ex4RoadSlider' type="text" data-slider-min="0" data-slider-max="6" data-slider-step="1" data-slider-value="0"/></a>
               <div id="example-4-results"></div>
               <div class="well"><img id="example-4-latex" src="http://latex.codecogs.com/svg.latex?        p_{steer}(err) = k_p \cdot err(t) \: + \: k_i \cdot \int_0^{t} \! err(t') \: \mathrm{d}t' \: + \:  k_d \cdot \frac{d}{dt} err(t) " border="0"/></div>
               Sensitivity to angle: &nbsp;&nbsp;&nbsp;<a href="javascript:void();" id="example-4-a"><input name="example-4-a" id="ex4-a" data-slider-id='ex4Slider' type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="5"/></a>
               <br>Sensitivity to summative: &nbsp;&nbsp;&nbsp;<a href="javascript:void();" id="example-4-b"><input name="example-4-b" id="ex4-b" data-slider-id='ex4Slider' type="text" data-slider-min="0" data-slider-max="1" data-slider-step="0.2" data-slider-value="0.2"/></a>
               <br>Sensitivity to derivative: &nbsp;&nbsp;&nbsp;<a href="javascript:void();" id="example-4-c"><input name="example-4-c" id="ex4-c" data-slider-id='ex4Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="2" data-slider-value="10"/></a>
+              <p>
+                In the language of mathematics, this tool is represented by the three terms we already created, combined into a single function.
+              </p>
             </div>
           </div>
 
