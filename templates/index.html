@@ -97,7 +97,7 @@
               <h3 class="panel-title">Try it Out!</h3>
             </div>
             <div class="panel-body">
-              <a href="javascript:void();" id="example-5"><div id="example-5-results"></div></a>
+              <div href="javascript:void();" id="example-5-results"></div>
               Sensitivity to angle: <a href="javascript:void();" id="example-5-a"><input name="example-5-a" id="ex5-a" data-slider-id='ex5Slider' type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="5"/></a>
               <br>Sensitivity to summative: <a href="javascript:void();" id="example-5-b"><input name="example-5-b" id="ex5-b" data-slider-id='ex5Slider' type="text" data-slider-min="0" data-slider-max="2" data-slider-step="0.2" data-slider-value="0.2"/></a>
               <br>Sensitivity to derivative: <a href="javascript:void();" id="example-5-c"><input name="example-5-c" id="ex5-c" data-slider-id='ex5Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="2" data-slider-value="10"/></a>
@@ -119,61 +119,61 @@
     // With JQuery
     $('#ex0').slider({
 	     formatter: function(value) {
-		       return 'Current value: ' + value;
+		       return value;
 	        }
         });
 
     $('#ex1').slider({
        formatter: function(value) {
-           return 'Current value: ' + value;
+           return value;
           }
         });
 
     $('#ex2').slider({
         formatter: function(value) {
-            return 'Current value: ' + value;
+            return value;
           }
         });
 
     $('#ex3').slider({
         formatter: function(value) {
-            return 'Current value: ' + value;
+            return value;
           }
         });
 
     $('#ex4-a').slider({
         formatter: function(value) {
-            return 'Current value: ' + value;
+            return value;
           }
         });
 
     $('#ex4-b').slider({
         formatter: function(value) {
-            return 'Current value: ' + value;
+            return value;
           }
         });
 
     $('#ex4-c').slider({
         formatter: function(value) {
-            return 'Current value: ' + value;
+            return value;
           }
         });
 
     $('#ex5-a').slider({
         formatter: function(value) {
-            return 'Current value: ' + value;
+            return value;
           }
         });
 
     $('#ex5-b').slider({
         formatter: function(value) {
-            return 'Current value: ' + value;
+            return value;
           }
         });
 
     $('#ex5-c').slider({
         formatter: function(value) {
-            return 'Current value: ' + value;
+            return value;
           }
         });
     </script>
@@ -249,7 +249,7 @@
     });
 
     $(function() {
-      $('a#example-5').bind('click', function() {
+      $('a#example-5-a, a#example-5-b, a#example-4-c').bind('click', function() {
         $.get('/_example-5', {
           a: $('#ex5-a').slider('getValue'),
           b: $('#ex5-b').slider('getValue'),

@@ -52,9 +52,7 @@ def example5():
 	if x == None or y == None:
 		x = 0
 		y = 0
-	fig = run_example_play(a,b,c,x,y)
-	plugins.connect(fig, plugins.MousePosition(fontsize=14))
-	return mpld3.fig_to_html(fig)
+	return mpld3.fig_to_html(run_example_play(a,b,c,x,y))
 
 @app.before_first_request
 def setup():
