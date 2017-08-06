@@ -135,6 +135,7 @@ examples_dics = dict()
 
 def run_example_NULL():
 	N = 10
+	length = 10
 	line = list(map(lambda x:0, np.linspace(0, length, N)))
 	fig = plt.figure(facecolor='#576b0f', figsize = (7,5))
 	ax = fig.add_subplot(111)
