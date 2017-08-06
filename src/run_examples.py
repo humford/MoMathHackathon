@@ -236,7 +236,7 @@ road_type_dict3 = dict()
 def run_example_3(k_d, a):
 	if not get_key(3, k_d, a) in examples_dics:
 		for k_d in np.linspace(0, 20, 10):
-			run_example_3(k_d)
+			example3_body(k_d, a)
 		print("DID CALC")
 	return examples_dics[get_key(3, k_d, a)]
 
