@@ -187,3 +187,14 @@ def run_example_3(k_d):
 
 	line = list(map(center_line_func, np.linspace(0, length, N)))
 	return Graph(PIDcontroller, params, line, t_max, Time_Num, np.array([0,0]))
+
+def run_example_4(k_p, k_i, k_d):
+	params = [k_p, k_i/20, 2*k_d]
+	N = 10
+	Time_Num = 10000
+	length = 10
+	t_max = 16
+	center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
+
+	line = list(map(center_line_func, np.linspace(0, length, N)))
+	return Graph(PIDcontroller, params, line, t_max, Time_Num, np.array([0,0]))
