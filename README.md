@@ -5,7 +5,7 @@
 
 ## The Math
 
-Our project explores control theory and feedback from a visual and intuitive perspective. Specifically we interactively guide the viewer through constructing a proportion-integral-derivative (PID) controller, one of the simplest and most powerful general control systems. The purpose is to alter the behavior of a dynamical system under some constraints on our control over the dynamics. Phrased another way, a controller is a map from an input signal driving our dynmaical system to an output signal which we hope satisfies some property, generally minimising some measure of error. 
+Our project explores control theory and feedback from a visual and intuitive perspective. Specifically, we interactively guide the viewer through constructing a proportion-integral-derivative (PID) controller, one of the simplest and most powerful general control systems. The purpose is to alter the behavior of a dynamical system under some constraints on our control over the dynamics. Phrased another way, a controller is a map from an input signal driving our dynmaical system to an output signal which we hope satisfies some property, generally minimising some measure of error. 
 
 Although highly important to and inspired by engineering, control theory and the larger theory of dynamical systems is highly important in pure and applied mathematics for it forms of the foundation of studies of chaotic and ergodic systems. PID controllers in particular serve as an intuitive representation of the applications of calculus, and thusly blend learning about the underlying mathematical concepts with learning their uses. 
 
