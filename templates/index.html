@@ -101,18 +101,63 @@
     </div>
     <script>
     // With JQuery
-    $('#ex1').slider({
+    $('#ex0').slider({
 	     formatter: function(value) {
 		       return 'Current value: ' + value;
 	        }
-        });</script>
+        });
+    $('#ex1').slider({
+       formatter: function(value) {
+           return 'Current value: ' + value;
+          }
+        });
+    $('#ex2').slider({
+        formatter: function(value) {
+            return 'Current value: ' + value;
+          }
+        });
+    </script>
+
+    <script type=text/javascript>
+    $(document).ready(function() {
+      $.get('/_example-0', {}, function(data) {$("#example-0-results").html(data);});
+      $.get('/_example-1', {}, function(data) {$("#example-1-results").html(data);});
+      $.get('/_example-2', {}, function(data) {$("#example-2-results").html(data);});
+      // $.get('/_example-3', {a:10}, function(data) {$("#example-0-results").html(data);});
+      // $.get('/_example-4', {a:10}, function(data) {$("#example-0-results").html(data);});
+      // $.get('/_example-5', {a:10}, function(data) {$("#example-0-results").html(data);});
+    });
+    </script>
+
     <script type=text/javascript>
     $(function() {
-      $('a#example-1').bind('mouseleave', function() {
+      $('a#example-0').bind('click', function() {
+        $.get('/_example-0', {
+          a: $('#ex0').slider('getValue')
+        }, function(data) {
+          $("#example-0-results").html(data);
+        });
+        return false;
+      });
+    });
+
+    $(function() {
+      $('a#example-1').bind('click', function() {
         $.get('/_example-1', {
           a: $('#ex1').slider('getValue')
         }, function(data) {
           $("#example-1-results").html(data);
+        });
+        return false;
+      });
+    });
+
+    $(function() {
+      $('a#example-2').bind('click', function() {
+        $.get('/_example-2', {
+          a: $('#ex2').slider('getValue')
+        }, function(data) {
+          $("#example-2-results").html(data);
         });
         return false;
       });
