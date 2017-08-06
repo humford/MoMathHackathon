@@ -20,7 +20,7 @@
         </div>
         <div class='col-lg-10'>
           <div class='page-header'>
-            <h3 class='text-muted'>MoMath Hackathon - Control Theory</h3>
+            <h2 class='text-muted'>MoMath Hackathon - Control Theory</h3>
           </div>
 
           <div class="jumbotron">
@@ -34,89 +34,92 @@
 
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title">Autonomous Cars</h3>
+              <h2 class="panel-title">Autonomous Cars</h2>
             </div>
             <div class="panel-body">
+              <p>Humans use their eyes and senses to observe the road the are on and in front of them and make slight adjustments
+                to their steering to stay on course. Robots, on the the other hand, don't have the intuitive sense for navigation
+                that humans do.
+              </p>
               <div id="example-null-results"></div>
+              <p>If we want our self driving cars to do more than just travel in <strong>straight lines</strong> we need to teach
+                computers how to follow a road using a language they can understand: <a href="#driving-with-math"><mark>MATH!</mark></a>
+              </p>
             </div>
           </div>
 
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title">Driving with Math!</h3>
+              <h2 class="panel-title">Driving with Math!</h2>
             </div>
             <div class="panel-body">
-              Road curve: <a href="javascript:void();" id="example-0-road"><input name="example-0-road" id="ex0-road" data-slider-id='ex0RoadSlider' type="text" data-slider-min="0" data-slider-max="6" data-slider-step="1" data-slider-value="0"/></a>
+              Road curve: &nbsp;&nbsp;&nbsp;<a href="javascript:void();" id="example-0-road"><input name="example-0-road" id="ex0-road" data-slider-id='ex0RoadSlider' type="text" data-slider-min="0" data-slider-max="6" data-slider-step="1" data-slider-value="0"/></a>
               <div id="example-0-results"></div>
-              <img id="example-0-latex" src="http://latex.codecogs.com/svg.latex?p_{steer}(err) = \begin{cases}    k,& \text{if } err(t) \geq d_{road}\\    0,              & \text{otherwise} \end{cases}" border="0"/>
-              <br><br>
-              Angle of turn: <a href="javascript:void();" id="example-0"><input name="example-0" id="ex0" data-slider-id='ex0Slider' type="text" data-slider-min="0" data-slider-max="2" data-slider-step="0.2" data-slider-value="0.6"/></a>
+              <div class="well"><img id="example-0-latex" src="http://latex.codecogs.com/svg.latex?p_{steer}(err) = \begin{cases}    k,& \text{if } err(t) \geq d_{road}\\    0,              & \text{otherwise} \end{cases}" border="0"/></div>
+              Angle of turn: &nbsp;&nbsp;&nbsp;<a href="javascript:void();" id="example-0"><input name="example-0" id="ex0" data-slider-id='ex0Slider' type="text" data-slider-min="0" data-slider-max="2" data-slider-step="0.2" data-slider-value="0.6"/></a>
             </div>
           </div>
 
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title">Proportional Turning</h3>
+              <h2 class="panel-title">Proportional Turning</h2>
             </div>
             <div class="panel-body">
-              Road curve: <a href="javascript:void();" id="example-1-road"><input name="example-1-road" id="ex1-road" data-slider-id='ex1RoadSlider' type="text" data-slider-min="0" data-slider-max="6" data-slider-step="1" data-slider-value="0"/></a>
+              Road curve: &nbsp;&nbsp;&nbsp;<a href="javascript:void();" id="example-1-road"><input name="example-1-road" id="ex1-road" data-slider-id='ex1RoadSlider' type="text" data-slider-min="0" data-slider-max="6" data-slider-step="1" data-slider-value="0"/></a>
               <div id="example-1-results"></div>
-              <img id="example-1-latex" src="http://latex.codecogs.com/svg.latex?        p_{steer}(err) = k_p \cdot err(t)" border="0"/>
-              <br><br>
-              Sensitivity to error: <a href="javascript:void();" id="example-1"><input name="example-1" id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="5"/></a>
+              <div class="well"><img id="example-1-latex" src="http://latex.codecogs.com/svg.latex?        p_{steer}(err) = k_p \cdot err(t)" border="0"/></div>
+              Sensitivity to error: &nbsp;&nbsp;&nbsp;<a href="javascript:void();" id="example-1"><input name="example-1" id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="5"/></a>
             </div>
           </div>
 
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title">Summative Turning</h3>
+              <h2 class="panel-title">Summative Turning</h2>
             </div>
             <div class="panel-body">
-              Road curve: <a href="javascript:void();" id="example-2-road"><input name="example-2-road" id="ex2-road" data-slider-id='ex2RoadSlider' type="text" data-slider-min="0" data-slider-max="6" data-slider-step="1" data-slider-value="0"/></a>
+              Road curve: &nbsp;&nbsp;&nbsp;<a href="javascript:void();" id="example-2-road"><input name="example-2-road" id="ex2-road" data-slider-id='ex2RoadSlider' type="text" data-slider-min="0" data-slider-max="6" data-slider-step="1" data-slider-value="0"/></a>
               <div id="example-2-results"></div>
-              <img id="example-2-latex" src="http://latex.codecogs.com/svg.latex?        p_{steer}(err) = k_p \cdot err(t)\: + \: k_i \cdot \int_0^{t} \! err(t') \: \mathrm{d}t' " border="0"/>
-              <br><br>
-              Sensitivity to summative: <a href="javascript:void();" id="example-2"><input name="example-2" id="ex2" data-slider-id='ex2Slider' type="text" data-slider-min="0" data-slider-max="1" data-slider-step="0.2" data-slider-value="0.2"/></a>
+              <div class="well"><img id="example-2-latex" src="http://latex.codecogs.com/svg.latex?        p_{steer}(err) = k_p \cdot err(t)\: + \: k_i \cdot \int_0^{t} \! err(t') \: \mathrm{d}t' " border="0"/></div>
+              Sensitivity to summative: &nbsp;&nbsp;&nbsp;<a href="javascript:void();" id="example-2"><input name="example-2" id="ex2" data-slider-id='ex2Slider' type="text" data-slider-min="0" data-slider-max="1" data-slider-step="0.2" data-slider-value="0.2"/></a>
             </div>
           </div>
 
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title">Differential Turning</h3>
+              <h2 class="panel-title">Differential Turning</h2>
             </div>
             <div class="panel-body">
-              Road curve: <a href="javascript:void();" id="example-3-road"><input name="example-3-road" id="ex3-road" data-slider-id='ex3RoadSlider' type="text" data-slider-min="0" data-slider-max="6" data-slider-step="1" data-slider-value="0"/></a>
+              Road curve: &nbsp;&nbsp;&nbsp;<a href="javascript:void();" id="example-3-road"><input name="example-3-road" id="ex3-road" data-slider-id='ex3RoadSlider' type="text" data-slider-min="0" data-slider-max="6" data-slider-step="1" data-slider-value="0"/></a>
               <div id="example-3-results"></div>
-              <img id="example-3-latex" src="http://latex.codecogs.com/svg.latex?        p_{steer}(err) = k_p \cdot err(t) \: + \: k_d \cdot \frac{d}{dt} err(t) " border="0"/>
-              <br><br>
-              Sensitivity to differential: <a href="javascript:void();" id="example-3"><input name="example-3" id="ex3" data-slider-id='ex3Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="2" data-slider-value="10"/></a>
+              <div class="well"><img id="example-3-latex" src="http://latex.codecogs.com/svg.latex?        p_{steer}(err) = k_p \cdot err(t) \: + \: k_d \cdot \frac{d}{dt} err(t) " border="0"/></div>
+              Sensitivity to differential: &nbsp;&nbsp;&nbsp;<a href="javascript:void();" id="example-3"><input name="example-3" id="ex3" data-slider-id='ex3Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="2" data-slider-value="10"/></a>
             </div>
           </div>
 
-          <div class="panel panel-default">
+          <div class="panel panel-info">
             <div class="panel-heading">
-              <h3 class="panel-title">Proportional - Integral - Derivative</h3>
+              <h2 class="panel-title">Proportional - Integral - Derivative</h2>
             </div>
             <div class="panel-body">
-              Road curve: <a href="javascript:void();" id="example-4-road"><input name="example-4-road" id="ex4-road" data-slider-id='ex4RoadSlider' type="text" data-slider-min="0" data-slider-max="6" data-slider-step="1" data-slider-value="0"/></a>
+              Road curve: &nbsp;&nbsp;&nbsp;<a href="javascript:void();" id="example-4-road"><input name="example-4-road" id="ex4-road" data-slider-id='ex4RoadSlider' type="text" data-slider-min="0" data-slider-max="6" data-slider-step="1" data-slider-value="0"/></a>
               <div id="example-4-results"></div>
-              <img id="example-4-latex" src="http://latex.codecogs.com/svg.latex?        p_{steer}(err) = k_p \cdot err(t) \: + \: k_i \cdot \int_0^{t} \! err(t') \: \mathrm{d}t' \: + \:  k_d \cdot \frac{d}{dt} err(t) " border="0"/>
-              <br><br>
-              Sensitivity to angle: <a href="javascript:void();" id="example-4-a"><input name="example-4-a" id="ex4-a" data-slider-id='ex4Slider' type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="5"/></a>
-              <br>Sensitivity to summative: <a href="javascript:void();" id="example-4-b"><input name="example-4-b" id="ex4-b" data-slider-id='ex4Slider' type="text" data-slider-min="0" data-slider-max="1" data-slider-step="0.2" data-slider-value="0.2"/></a>
-              <br>Sensitivity to derivative: <a href="javascript:void();" id="example-4-c"><input name="example-4-c" id="ex4-c" data-slider-id='ex4Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="2" data-slider-value="10"/></a>
+              <div class="well"><img id="example-4-latex" src="http://latex.codecogs.com/svg.latex?        p_{steer}(err) = k_p \cdot err(t) \: + \: k_i \cdot \int_0^{t} \! err(t') \: \mathrm{d}t' \: + \:  k_d \cdot \frac{d}{dt} err(t) " border="0"/></div>
+              Sensitivity to angle: &nbsp;&nbsp;&nbsp;<a href="javascript:void();" id="example-4-a"><input name="example-4-a" id="ex4-a" data-slider-id='ex4Slider' type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="5"/></a>
+              <br>Sensitivity to summative: &nbsp;&nbsp;&nbsp;<a href="javascript:void();" id="example-4-b"><input name="example-4-b" id="ex4-b" data-slider-id='ex4Slider' type="text" data-slider-min="0" data-slider-max="1" data-slider-step="0.2" data-slider-value="0.2"/></a>
+              <br>Sensitivity to derivative: &nbsp;&nbsp;&nbsp;<a href="javascript:void();" id="example-4-c"><input name="example-4-c" id="ex4-c" data-slider-id='ex4Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="2" data-slider-value="10"/></a>
             </div>
           </div>
 
-          <div class="panel panel-default">
+          <div class="panel panel-success">
             <div class="panel-heading">
-              <h3 class="panel-title">Try it Out!</h3>
+              <h2 class="panel-title">Try it Out!</h2>
             </div>
             <div class="panel-body">
+              <p>Play with the proportion, integral, and derivative parts of the controller and see if you can optimize the path the car takes.</p>
               <div href="javascript:void();" id="example-5-results"></div>
-              Sensitivity to angle: <a href="javascript:void();" id="example-5-a"><input name="example-5-a" id="ex5-a" data-slider-id='ex5Slider' type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="5"/></a>
-              <br>Sensitivity to summative: <a href="javascript:void();" id="example-5-b"><input name="example-5-b" id="ex5-b" data-slider-id='ex5Slider' type="text" data-slider-min="0" data-slider-max="1" data-slider-step="0.2" data-slider-value="0.2"/></a>
-              <br>Sensitivity to derivative: <a href="javascript:void();" id="example-5-c"><input name="example-5-c" id="ex5-c" data-slider-id='ex5Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="2" data-slider-value="10"/></a>
+              Sensitivity to angle: &nbsp;&nbsp;&nbsp;<a href="javascript:void();" id="example-5-a"><input name="example-5-a" id="ex5-a" data-slider-id='ex5Slider' type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="5"/></a>
+              <br>Sensitivity to summative: &nbsp;&nbsp;&nbsp;<a href="javascript:void();" id="example-5-b"><input name="example-5-b" id="ex5-b" data-slider-id='ex5Slider' type="text" data-slider-min="0" data-slider-max="1" data-slider-step="0.2" data-slider-value="0.2"/></a>
+              <br>Sensitivity to derivative: &nbsp;&nbsp;&nbsp;<a href="javascript:void();" id="example-5-c"><input name="example-5-c" id="ex5-c" data-slider-id='ex5Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="2" data-slider-value="10"/></a>
             </div>
           </div>
 
