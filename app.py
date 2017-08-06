@@ -18,29 +18,34 @@ def exampleNULL():
 @app.route('/_example-0')
 def example0():
 	a = request.args.get('a', 0.6, type=float)
-	return mpld3.fig_to_html(run_example_0(a))
+	r = request.args.get('r', 0, type=float)
+	return mpld3.fig_to_html(run_example_0(a, r))
 
 @app.route('/_example-1')
 def example1():
 	a = request.args.get('a', 5, type=float)
-	return mpld3.fig_to_html(run_example_1(a))
+	r = request.args.get('r', 0, type=float)
+	return mpld3.fig_to_html(run_example_1(a, r))
 
 @app.route('/_example-2')
 def example2():
 	a = request.args.get('a', 0.2, type=float)
-	return mpld3.fig_to_html(run_example_2(a))
+	r = request.args.get('r', 0, type=float)
+	return mpld3.fig_to_html(run_example_2(a, r))
 
 @app.route('/_example-3')
 def example3():
 	a = request.args.get('a', 10, type=float)
-	return mpld3.fig_to_html(run_example_3(a))
+	r = request.args.get('r', 0, type=float)
+	return mpld3.fig_to_html(run_example_3(a, r))
 
 @app.route('/_example-4')
 def example4():
 	a = request.args.get('a', 5, type=float)
 	b = request.args.get('b', 0.2, type=float)
 	c = request.args.get('c', 10, type=float)
-	return mpld3.fig_to_html(run_example_4(a,b,c))
+	r = request.args.get('r', 0, type=float)
+	return mpld3.fig_to_html(run_example_4(a, b, c, r))
 
 @app.route('/_example-5')
 def example5():

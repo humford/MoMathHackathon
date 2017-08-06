@@ -46,6 +46,7 @@
               <h3 class="panel-title">Driving with Math!</h3>
             </div>
             <div class="panel-body">
+              Road curve: <a href="javascript:void();" id="example-0-road"><input name="example-0-road" id="ex0-road" data-slider-id='ex0RoadSlider' type="text" data-slider-min="0" data-slider-max="6" data-slider-step="1" data-slider-value="0"/></a>
               <div id="example-0-results"></div>
               <img id="example-0-latex" src="http://latex.codecogs.com/svg.latex?p_{steer}(err) = \begin{cases}    k,& \text{if } err(t) \geq d_{road}\\    0,              & \text{otherwise} \end{cases}" border="0"/>
               <br><br>
@@ -58,8 +59,9 @@
               <h3 class="panel-title">Proportional Turning</h3>
             </div>
             <div class="panel-body">
+              Road curve: <a href="javascript:void();" id="example-1-road"><input name="example-1-road" id="ex1-road" data-slider-id='ex1RoadSlider' type="text" data-slider-min="0" data-slider-max="6" data-slider-step="1" data-slider-value="0"/></a>
               <div id="example-1-results"></div>
-              <img id="example-1-latex" src="http://latex.codecogs.com/svg.latex?\[        p_{steer}(err) = k_p \cdot err(t)\]" border="0"/>
+              <img id="example-1-latex" src="http://latex.codecogs.com/svg.latex?        p_{steer}(err) = k_p \cdot err(t)" border="0"/>
               <br><br>
               Sensitivity to error: <a href="javascript:void();" id="example-1"><input name="example-1" id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="5"/></a>
             </div>
@@ -70,8 +72,9 @@
               <h3 class="panel-title">Summative Turning</h3>
             </div>
             <div class="panel-body">
+              Road curve: <a href="javascript:void();" id="example-2-road"><input name="example-2-road" id="ex2-road" data-slider-id='ex2RoadSlider' type="text" data-slider-min="0" data-slider-max="6" data-slider-step="1" data-slider-value="0"/></a>
               <div id="example-2-results"></div>
-              <img id="example-2-latex" src="http://latex.codecogs.com/svg.latex?\[        p_{steer}(err) = k_p \cdot err(t)\: + \: k_i \cdot \int_0^{t} \! err(t') \: \mathrm{d}t' \]" border="0"/>
+              <img id="example-2-latex" src="http://latex.codecogs.com/svg.latex?        p_{steer}(err) = k_p \cdot err(t)\: + \: k_i \cdot \int_0^{t} \! err(t') \: \mathrm{d}t' " border="0"/>
               <br><br>
               Sensitivity to summative: <a href="javascript:void();" id="example-2"><input name="example-2" id="ex2" data-slider-id='ex2Slider' type="text" data-slider-min="0" data-slider-max="1" data-slider-step="0.2" data-slider-value="0.2"/></a>
             </div>
@@ -82,8 +85,9 @@
               <h3 class="panel-title">Differential Turning</h3>
             </div>
             <div class="panel-body">
+              Road curve: <a href="javascript:void();" id="example-3-road"><input name="example-3-road" id="ex3-road" data-slider-id='ex3RoadSlider' type="text" data-slider-min="0" data-slider-max="6" data-slider-step="1" data-slider-value="0"/></a>
               <div id="example-3-results"></div>
-              <img id="example-3-latex" src="http://latex.codecogs.com/svg.latex?\[        p_{steer}(err) = k_p \cdot err(t) \: + \: k_d \cdot \frac{d}{dt} err(t) \]" border="0"/>
+              <img id="example-3-latex" src="http://latex.codecogs.com/svg.latex?        p_{steer}(err) = k_p \cdot err(t) \: + \: k_d \cdot \frac{d}{dt} err(t) " border="0"/>
               <br><br>
               Sensitivity to differential: <a href="javascript:void();" id="example-3"><input name="example-3" id="ex3" data-slider-id='ex3Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="2" data-slider-value="10"/></a>
             </div>
@@ -94,8 +98,9 @@
               <h3 class="panel-title">Proportional - Integral - Derivative</h3>
             </div>
             <div class="panel-body">
+              Road curve: <a href="javascript:void();" id="example-4-road"><input name="example-4-road" id="ex4-road" data-slider-id='ex4RoadSlider' type="text" data-slider-min="0" data-slider-max="6" data-slider-step="1" data-slider-value="0"/></a>
               <div id="example-4-results"></div>
-              <img id="example-4-latex" src="http://latex.codecogs.com/svg.latex?\[        p_{steer}(err) = k_p \cdot err(t) \: + \: k_i \cdot \int_0^{t} \! err(t') \: \mathrm{d}t' \: + \:  k_d \cdot \frac{d}{dt} err(t) \]" border="0"/>
+              <img id="example-4-latex" src="http://latex.codecogs.com/svg.latex?        p_{steer}(err) = k_p \cdot err(t) \: + \: k_i \cdot \int_0^{t} \! err(t') \: \mathrm{d}t' \: + \:  k_d \cdot \frac{d}{dt} err(t) " border="0"/>
               <br><br>
               Sensitivity to angle: <a href="javascript:void();" id="example-4-a"><input name="example-4-a" id="ex4-a" data-slider-id='ex4Slider' type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="5"/></a>
               <br>Sensitivity to summative: <a href="javascript:void();" id="example-4-b"><input name="example-4-b" id="ex4-b" data-slider-id='ex4Slider' type="text" data-slider-min="0" data-slider-max="1" data-slider-step="0.2" data-slider-value="0.2"/></a>
@@ -127,6 +132,35 @@
       </div>
     </div>
     <script>
+    $('#ex0-road').slider({
+	     formatter: function(value) {
+		       return value;
+	        }
+        });
+
+    $('#ex1-road').slider({
+       formatter: function(value) {
+           return value;
+          }
+        });
+
+    $('#ex2-road').slider({
+        formatter: function(value) {
+            return value;
+          }
+        });
+
+    $('#ex3-road').slider({
+        formatter: function(value) {
+            return value;
+          }
+        });
+
+    $('#ex4-road').slider({
+        formatter: function(value) {
+            return value;
+          }
+        });
     // With JQuery
     $('#ex0').slider({
 	     formatter: function(value) {
@@ -218,9 +252,10 @@
 
     <script type=text/javascript>
     $(function() {
-      $('a#example-0').bind('click', function() {
+      $('a#example-0, a#example-0-road').bind('click', function() {
         $.get('/_example-0', {
-          a: $('#ex0').slider('getValue')
+          a: $('#ex0').slider('getValue'),
+          r: $('#ex0-road').slider('getValue')
         }, function(data) {
           $("#example-0-results").html(data);
           $("#example-0-latex").attr("src", "http://latex.codecogs.com/svg.latex?p_{steer}(err) = \\begin{cases}   ".concat($('#ex0').slider('getValue'), ",& \\text{if } err(t) \\geq d_{road}\\\\    0,              & \\text{otherwise} \\end{cases}"));
@@ -230,9 +265,10 @@
     });
 
     $(function() {
-      $('a#example-1').bind('click', function() {
+      $('a#example-1, a#example-1-road').bind('click', function() {
         $.get('/_example-1', {
-          a: $('#ex1').slider('getValue')
+          a: $('#ex1').slider('getValue'),
+          r: $('#ex1-road').slider('getValue')
         }, function(data) {
           $("#example-1-results").html(data);
           $("#example-1-latex").attr("src", "http://latex.codecogs.com/svg.latex?        p_{steer}(err) = ".concat($('#ex1').slider('getValue'), " \\cdot err(t)"));
@@ -242,9 +278,10 @@
     });
 
     $(function() {
-      $('a#example-2').bind('click', function() {
+      $('a#example-2, a#example-2-road').bind('click', function() {
         $.get('/_example-2', {
-          a: $('#ex2').slider('getValue')
+          a: $('#ex2').slider('getValue'),
+          r: $('#ex2-road').slider('getValue')
         }, function(data) {
           $("#example-2-results").html(data);
           $("#example-2-latex").attr("src", "http://latex.codecogs.com/svg.latex?        p_{steer}(err) = 10 \\cdot err(t)\\: + \\: ".concat($('#ex2').slider('getValue'), " \\cdot \\int_0^{t} \\! err(t') \\: \\mathrm{d}t' "));
@@ -254,9 +291,10 @@
     });
 
     $(function() {
-      $('a#example-3').bind('click', function() {
+      $('a#example-3, a#example-3-road').bind('click', function() {
         $.get('/_example-3', {
-          a: $('#ex3').slider('getValue')
+          a: $('#ex3').slider('getValue'),
+          r: $('#ex3-road').slider('getValue')
         }, function(data) {
           $("#example-3-results").html(data);
           $("#example-3-latex").attr("src", "http://latex.codecogs.com/svg.latex?        p_{steer}(err) = 10 \\cdot err(t) \\: + \\: ".concat($('#ex3').slider('getValue'), " \\cdot \\frac{d}{dt} err(t) "));
@@ -266,11 +304,12 @@
     });
 
     $(function() {
-      $('a#example-4-a, a#example-4-b, a#example-4-c').bind('click', function() {
+      $('a#example-4-a, a#example-4-b, a#example-4-c, a#example-4-road').bind('click', function() {
         $.get('/_example-4', {
           a: $('#ex4-a').slider('getValue'),
           b: $('#ex4-b').slider('getValue'),
-          c: $('#ex4-c').slider('getValue')
+          c: $('#ex4-c').slider('getValue'),
+          r: $('#ex4-road').slider('getValue')
         }, function(data) {
           $("#example-4-results").html(data);
           $("#example-4-latex").attr("src", "http://latex.codecogs.com/svg.latex?        p_{steer}(err) = ".concat($('#ex4-a').slider('getValue'), " \\cdot err(t) \\: + \\: ", $('#ex4-b').slider('getValue'), " \\cdot \\int_0^{t} \\! err(t') \\: \\mathrm{d}t' \\: + \\:  ", $('#ex4-c').slider('getValue'), " \\cdot \\frac{d}{dt} err(t) "));
