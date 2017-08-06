@@ -22,7 +22,7 @@
 #
 #
 import matplotlib
-matplotlib.use('Agg')
+#matplotlib.use('Agg')
 from math import *
 from scipy.integrate import odeint
 import numpy as np
@@ -32,7 +32,7 @@ from time import time
 from operator import add
 
 max_rate = 2.5
-rd_width = 0.3
+rd_width = 0.75
 
 def sign(x):
 	if x >= 0:
@@ -106,11 +106,11 @@ def Graph(controller, params, line, t_max, N, initial_pos):
 
 	start = time()
 	func = car_rate_of_change_function(controller, params, line)
-	sol = my_odeint(func, y0, t)
+	sol = odeint(func, y0, t)
 	print("Time: " + str(time() - start))
 	lables = ["x", "y", r"$\theta$", "v", r"$\int error$"]
 	lables = ["x", "y", r"$\theta$", "v", r"$\int error$"]
-	fig = plt.figure(facecolor='#576b0f', figsize = (10,10))
+	fig = plt.figure(facecolor='#576b0f', figsize = (7,5))
 	ax = fig.add_subplot(111)
 	ax.plot(project(line, 0), project(line, 1), label = "center line", linewidth = 50, color = 'k',  path_effects=[pe.Stroke(linewidth = 53, foreground='w'), pe.Normal()])
 	ax.plot(project(line, 0), project(line, 1), label = "center line", linewidth = 3, linestyle = "--", color = 'y')
@@ -135,7 +135,7 @@ def run_example_1(k_c):
 	N = 10
 	Time_Num = 1000
 	length = 10
-	t_max = 30
+	t_max = 25
 	center_line_func = lambda x : np.array([x, 6/(1 + exp(-(8*(x-5))))])
 
 	line = list(map(center_line_func, np.linspace(0, length, N)))
@@ -146,7 +146,7 @@ def run_example_2(k_p):
 	N = 10
 	Time_Num = 1000
 	length = 10
-	t_max = 30
+	t_max = 20
 	center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
 
 	line = list(map(center_line_func, np.linspace(0, length, N)))
@@ -157,7 +157,7 @@ def run_example_3(k_i):
 	N = 10
 	Time_Num = 1000
 	length = 10
-	t_max = 30
+	t_max = 20
 	center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
 
 	line = list(map(center_line_func, np.linspace(0, length, N)))

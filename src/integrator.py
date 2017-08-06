@@ -44,8 +44,8 @@ def Show_Debug_Stats(controller, params, line, t_max, N):
 
 
 def main(args):
-	run_example_1(0.5)
-	plt.savefig("road.png")
+	run_example_2(500)
+	#plt.savefig("road.png")
 	plt.show()
 
 if __name__ == '__main__':
