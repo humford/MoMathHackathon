@@ -31,7 +31,7 @@ from time import time
 from operator import add
 
 max_rate = 2.5
-rd_width = 0.22
+rd_width = 0.3
 
 def sign(x):
 	if x >= 0:
@@ -134,14 +134,11 @@ def run_example_1(k_c):
 	N = 10
 	Time_Num = 1000
 	length = 10
-	t_max = 0
-	center_line_func = lambda x : np.array([x, 0/(1 + exp(-(10*(x-5))))])
+	t_max = 30
+	center_line_func = lambda x : np.array([x, 6/(1 + exp(-(8*(x-5))))])
 	
 	line = list(map(center_line_func, np.linspace(0, length, N)))
 	return Graph(CRAPcontroller, params, line, t_max, Time_Num, np.array([0,0]))
-
-def center_line_func(x):
-	return np.array([x, 1/(1 + exp(-(2*(x-5))))])
 
 def run_example_2(k_p):
 	params = [k_p, 0, 0]
