@@ -216,6 +216,8 @@ def run_example_1(k_p, a):
 		print("DID CALC")
 	return examples_dics[get_key(1, k_p, a)]
 
+
+
 def run_example_2(k_i, a):
 	if not get_key(2, k_i, a) in examples_dics:
 		params = [10, k_i, 0]
@@ -229,18 +231,24 @@ def run_example_2(k_i, a):
 		print("DID CALC")
 	return examples_dics[get_key(2, k_i, a)]
 
+road_type_dict3 = dict()
+
 def run_example_3(k_d, a):
 	if not get_key(3, k_d, a) in examples_dics:
-		params = [10, 0, k_d]
-		t_max = 16*(1+a/6)
-		if a < 1 or a > 6:
-			func = center_line_func
-		else:
-			func = lambda x : nasty_curve(a, x)
-		line = list(map(func, np.linspace(0, length, N)))
-		examples_dics[get_key(3, k_d, a)] = Graph(PIDcontroller, params, line, t_max, np.array([0,0]), func)
+		for k_d in np.linspace(0, 20, 10):
+			run_example_3(k_d)
 		print("DID CALC")
 	return examples_dics[get_key(3, k_d, a)]
+
+def example3_body(k_d, a):
+	params = [10, 0, k_d]
+	t_max = 16*(1 + a/6)
+	if a < 1 or a > 6:
+		func = center_line_func
+	else:
+		func = lambda x : nasty_curve(a, x)
+	line = list(map(func, np.linspace(0, length, N)))
+	examples_dics[get_key(3, k_d, a)] = Graph(PIDcontroller, params, line, t_max, np.array([0,0]), func)
 
 def run_example_4(k_p, k_i, k_d, a):
 	params = [k_p, k_i, k_d]
