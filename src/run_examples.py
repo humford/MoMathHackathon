@@ -25,7 +25,6 @@
 from math import *
 from scipy.integrate import odeint 
 from scipy.misc import imread
-from controllers import *
 import numpy as np
 from matplotlib import pyplot as plt
 import matplotlib.patheffects as pe
@@ -83,7 +82,7 @@ def car_rate_of_change_function(controller, params, line):
 def project(arr, i):
 	return list(map(lambda x: x[i], arr))
 
-def Return_Graph(controller, params, line, t_max, N):
+def Graph(controller, params, line, t_max, N, initial_pos):
 	y0 = [0, 0, 0, 1, 0]
 	t = np.linspace(0, t_max, N)
 	
@@ -96,30 +95,13 @@ def Return_Graph(controller, params, line, t_max, N):
 	fig = plt.figure(facecolor='#576b0f')
 	ax = fig.add_subplot(111)
 	ax.plot(project(line, 0), project(line, 1), label = "center line", linewidth = 50, color = 'k',  path_effects=[pe.Stroke(linewidth = 53, foreground='w'), pe.Normal()])
-	ax.plot(project(line, 0), project(line, 1), label = "center line", linewidth = 5, linestyle = "--", color = 'y')
-	ax.plot(project(sol, 0), project(sol, 1), label = "path", color = 'red')
+	ax.plot(project(line, 0), project(line, 1), label = "center line", linewidth = 3, linestyle = "--", color = 'y')
+	ax.plot(project(sol, 0), project(sol, 1), label = "path", color = 'red', linewidth = 2, linestyle = "-")
 	ax.set_xlim([-1, t_max + 1])
 	ax.set_ylim([-0.5, 1.5])
 	ax.axis('off')
 	return ax
 
-def Show_Debug_Stats(controller, params, line, t_max, N):
-	y0 = [0, 0, 0, 1, 0]
-	t = np.linspace(0, t_max, N)
-	
-	start = time()
-	func = car_rate_of_change_function(controller, params, line)
-	sol = odeint(func, y0, t)
-	print("Time: " + str(time() - start))
-	lables = ["x", "y", r"$\theta$", "v", r"$\int error$"]
-
-	for i in range(5):
-		if i != 3:
-			plt.plot(t, project(sol, i), label = lables[i])
-
-	plt.plot(t, list(map(lambda x: get_error(x[0], x[1], x[2], x[3], x[4], line)[0], sol)), label = "error")
-	p = plt.legend()
-	plt.show()
 
 def center_line_func(x):
 	return np.array([x, 1/(1 + exp(-(2*(x-5))))])
@@ -130,5 +112,5 @@ def run_example_1(k_p):
 	Time_Num = 1000
 	length = 10
 	line = list(map(center_line_func, np.linspace(0, length, N)))
-	return Return_Graph(PIDcontroller, params, line, length, Time_Num)
+	return Graph(PIDcontroller, params, line, length, Time_Num, np.array([0,0]))
 	

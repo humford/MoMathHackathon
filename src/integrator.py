@@ -22,39 +22,7 @@
 #
 #
 
-from math import *
-from scipy.integrate import odeint 
-from scipy.misc import imread
-from controllers import *
-import numpy as np
-from matplotlib import pyplot as plt
-import matplotlib.patheffects as pe
-from time import time
-
-
-
-def project(arr, i):
-	return list(map(lambda x: x[i], arr))
-
-def Return_Graph(controller, params, line, t_max, N):
-	y0 = [0, 0, 0, 1, 0]
-	t = np.linspace(0, t_max, N)
-	
-	start = time()
-	func = car_rate_of_change_function(controller, params, line)
-	sol = odeint(func, y0, t)
-	print("Time: " + str(time() - start))
-	lables = ["x", "y", r"$\theta$", "v", r"$\int error$"]
-	
-	fig = plt.figure(facecolor='#576b0f')
-	ax = fig.add_subplot(111)
-	ax.plot(project(line, 0), project(line, 1), label = "center line", linewidth = 50, color = 'k',  path_effects=[pe.Stroke(linewidth = 53, foreground='w'), pe.Normal()])
-	ax.plot(project(line, 0), project(line, 1), label = "center line", linewidth = 5, linestyle = "--", color = 'y')
-	ax.plot(project(sol, 0), project(sol, 1), label = "path", color = 'red')
-	ax.set_xlim([-1, t_max + 1])
-	ax.set_ylim([-0.5, 1.5])
-	ax.axis('off')
-	return ax
+from run_examples import *
 
 def Show_Debug_Stats(controller, params, line, t_max, N):
 	y0 = [0, 0, 0, 1, 0]
@@ -74,24 +42,13 @@ def Show_Debug_Stats(controller, params, line, t_max, N):
 	p = plt.legend()
 	plt.show()
 
-def center_line_func(x):
-	return np.array([x, 1/(1 + exp(-(2*(x-5))))])
-	
-def run_example_1(k_p):
-	params = [k_p, 0, 0]
-	N = 5
-	Time_Num = 1000
-	length = 10
-	line = list(map(center_line_func, np.linspace(0, length, N)))
-	return Return_Graph(PIDcontroller, params, line, length, Time_Num)
-	
 
 def main(args):
 	N = 5
 	Time_Num = 10000
 	length = 10
 	line = list(map(center_line_func, np.linspace(0, length, N)))
-	Return_Graph(PIDcontroller, [10, 0, 0], line, length, Time_Num)
+	Graph(PIDcontroller, [10, 0, 0], line, length, Time_Num, np.array([0,0]))
 	plt.show()
 
 if __name__ == '__main__':
