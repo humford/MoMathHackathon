@@ -3,6 +3,8 @@ matplotlib.use('Agg')
 from flask import Flask, render_template, request
 from src.run_examples import *
 import matplotlib.pyplot as plt, mpld3
+import mpld3
+from mpld3 import plugins
 app = Flask(__name__)
 
 @app.route('/')
@@ -50,7 +52,9 @@ def example5():
 	if x == None or y == None:
 		x = 0
 		y = 0
-	return mpld3.fig_to_html(run_example_play(a,b,c,x,y))
+	fig = run_example_play(a,b,c,x,y)
+	plugins.connect(fig, plugins.MousePosition(fontsize=14))
+	return mpld3.fig_to_html(fig)
 
 @app.before_first_request
 def setup():
