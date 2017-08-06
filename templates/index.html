@@ -44,7 +44,7 @@
             </div>
             <div class="panel-body">
               <div id="example-0-results"></div>
-              <a href="javascript:void();" id="example-0"><input name="example-0" id="ex0" data-slider-id='ex0Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="10"/></a>
+              Angle of turn: <a href="javascript:void();" id="example-0"><input name="example-0" id="ex0" data-slider-id='ex0Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="10"/></a>
             </div>
           </div>
 
@@ -54,7 +54,7 @@
             </div>
             <div class="panel-body">
               <div id="example-1-results"></div>
-              <a href="javascript:void();" id="example-1"><input name="example-1" id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="10"/></a>
+              Sensitivity to error: <a href="javascript:void();" id="example-1"><input name="example-1" id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="10"/></a>
             </div>
           </div>
 
@@ -64,7 +64,7 @@
             </div>
             <div class="panel-body">
               <div id="example-2-results"></div>
-              <a href="javascript:void();" id="example-2"><input name="example-2" id="ex2" data-slider-id='ex2Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="10"/></a>
+              Sensitivity to summative: <a href="javascript:void();" id="example-2"><input name="example-2" id="ex2" data-slider-id='ex2Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="10"/></a>
             </div>
           </div>
 
@@ -74,7 +74,7 @@
             </div>
             <div class="panel-body">
               <div id="example-3-results"></div>
-              <a href="javascript:void();" id="example-3"><input name="example-3" id="ex3" data-slider-id='ex3Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="10"/></a>
+              Sensitivity to differential: <a href="javascript:void();" id="example-3"><input name="example-3" id="ex3" data-slider-id='ex3Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="10"/></a>
             </div>
           </div>
 
@@ -84,7 +84,9 @@
             </div>
             <div class="panel-body">
               <div id="example-4-results"></div>
-              <a href="javascript:void();" id="example-4"><input name="example-4" id="ex4" data-slider-id='ex4Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="10"/></a>
+              Sensitivity to angle: <a href="javascript:void();" id="example-4-a"><input name="example-4-a" id="ex4-a" data-slider-id='ex4Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="10"/></a>
+              <br>Sensitivity to summative: <a href="javascript:void();" id="example-4-b"><input name="example-4-b" id="ex4-b" data-slider-id='ex4Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="10"/></a>
+              <br>Sensitivity to derivative: <a href="javascript:void();" id="example-4-c"><input name="example-4-c" id="ex4-c" data-slider-id='ex4Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="10"/></a>
             </div>
           </div>
 
@@ -126,6 +128,26 @@
             return 'Current value: ' + value;
           }
         });
+    $('#ex3').slider({
+        formatter: function(value) {
+            return 'Current value: ' + value;
+          }
+        });
+    $('#ex4-a').slider({
+        formatter: function(value) {
+            return 'Current value: ' + value;
+          }
+        });
+    $('#ex4-b').slider({
+        formatter: function(value) {
+            return 'Current value: ' + value;
+          }
+        });
+    $('#ex4-c').slider({
+        formatter: function(value) {
+            return 'Current value: ' + value;
+          }
+        });
     </script>
 
     <script type=text/javascript>
@@ -134,9 +156,9 @@
       $.get('/_example-0', {}, function(data) {$("#example-0-results").html(data);});
       $.get('/_example-1', {}, function(data) {$("#example-1-results").html(data);});
       $.get('/_example-2', {}, function(data) {$("#example-2-results").html(data);});
-      // $.get('/_example-3', {a:10}, function(data) {$("#example-0-results").html(data);});
-      // $.get('/_example-4', {a:10}, function(data) {$("#example-0-results").html(data);});
-      // $.get('/_example-5', {a:10}, function(data) {$("#example-0-results").html(data);});
+      $.get('/_example-3', {}, function(data) {$("#example-3-results").html(data);});
+      $.get('/_example-4', {}, function(data) {$("#example-4-results").html(data);});
+      // $.get('/_example-5', {a:10}, function(data) {$("#example-5-results").html(data);});
     });
     </script>
 
@@ -169,6 +191,30 @@
           a: $('#ex2').slider('getValue')
         }, function(data) {
           $("#example-2-results").html(data);
+        });
+        return false;
+      });
+    });
+
+    $(function() {
+      $('a#example-3').bind('click', function() {
+        $.get('/_example-3', {
+          a: $('#ex3').slider('getValue')
+        }, function(data) {
+          $("#example-3-results").html(data);
+        });
+        return false;
+      });
+    });
+
+    $(function() {
+      $('a#example-4-a, a#example-4-b, a#example-4-c').bind('click', function() {
+        $.get('/_example-4', {
+          a: $('#ex4-a').slider('getValue'),
+          b: $('#ex4-b').slider('getValue'),
+          c: $('#ex4-c').slider('getValue')
+        }, function(data) {
+          $("#example-4-results").html(data);
         });
         return false;
       });

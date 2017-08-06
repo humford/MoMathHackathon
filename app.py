@@ -28,5 +28,17 @@ def example2():
 	a = request.args.get('a', 10, type=int)
 	return mpld3.fig_to_html(run_example_2(a))
 
+@app.route('/_example-3')
+def example3():
+	a = request.args.get('a', 10, type=int)
+	return mpld3.fig_to_html(run_example_3(a))
+
+@app.route('/_example-4')
+def example4():
+	a = request.args.get('a', 10, type=int)
+	b = request.args.get('b', 10, type=int)
+	c = request.args.get('c', 10, type=int)
+	return mpld3.fig_to_html(run_example_4(a,b,c))
+
 if __name__ == "__main__":
 	app.run()
