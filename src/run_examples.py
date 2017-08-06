@@ -128,20 +128,20 @@ def Graph(controller, params, line, t_max, initial_pos, line_func):
 
 	xnew = np.linspace(0, length, 100)
 	smooth = list(map(line_func, xnew))
-	
+
 	lables = ["x", "y", r"$\theta$", "v", r"$\int error$"]
 	fig = plt.figure(facecolor='#576b0f', figsize = (7,5))
 	ax = fig.add_subplot(111)
-	
+
 	cut = len(sol)
-	
+
 	for i in range(len(sol)):
 		if sol[i][0] > length:
 			cut = i
 			break
-	
+
 	print("Time to Finish: " + str(t[i]))
-	
+
 	ax.plot(project(smooth, 0), project(smooth, 1), label = "shoulder", linewidth = 52, color = 'w')
 	ax.plot(project(smooth, 0), project(smooth, 1), label = "road", linewidth = 50, color = 'k')
 	ax.plot(project(smooth, 0), project(smooth, 1), label = "center line", linewidth = 3, linestyle = "--", color = 'y')
@@ -166,7 +166,7 @@ def exp_thing(a, t):
 
 def nasty_curve(a, t):
 	return np.array([(5 + (a-1)*cube_root(sin(2*pi/10*t)))*exp_thing(a, t) + t * (1-exp_thing(a, t)), (6*t/10)*exp_thing(a, t) + 6/(1 + exp(5-t)) * (1-exp_thing(a,t))])
-	
+
 
 examples_dics = dict()
 
@@ -177,7 +177,7 @@ def run_example_NULL():
 
 	fig = plt.figure(facecolor='#576b0f', figsize = (7,5))
 	ax = fig.add_subplot(111)
-	
+
 	ax.plot(xnew, smooth, label = "shoulder", linewidth = 52, color = 'w')
 	ax.plot(xnew, smooth, label = "road", linewidth = 50, color = 'k')
 	ax.plot(xnew, smooth, label = "center line", linewidth = 3, linestyle = "--", color = 'y')
@@ -255,7 +255,7 @@ def run_example_4(k_p, k_i, k_d, a):
 
 def run_example_play(k_p, k_i, k_d, mouse_x, mouse_y):
 	params = [k_p, k_i, k_d]
-	t_max = 22*(1+a/6)
+	t_max = 22
 	new_N = 50
 	line = list(map(curve, np.linspace(0, length, new_N)))
 	return Graph(PIDcontroller, params, line, t_max, np.array([mouse_x, mouse_y]), curve)
