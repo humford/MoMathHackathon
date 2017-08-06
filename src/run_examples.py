@@ -36,7 +36,7 @@ max_rate = 2.5
 rd_width = 0.75
 max_steps = 1000
 Time_Num = 1000
-N = 10
+N = 30
 length = 10
 vert = 6
 
@@ -124,7 +124,7 @@ def Graph(controller, params, line, t_max, initial_pos, line_func):
 	start = time()
 	func = car_rate_of_change_function(controller, params, line)
 	sol = my_odeint(func, y0, t)
-	print("Time: " + str(time() - start))
+	print("Integration Time: " + str(time() - start))
 
 	xnew = np.linspace(0, length, 100)
 	smooth = list(map(line_func, xnew))
@@ -133,14 +133,40 @@ def Graph(controller, params, line, t_max, initial_pos, line_func):
 	fig = plt.figure(facecolor='#576b0f', figsize = (7,5))
 	ax = fig.add_subplot(111)
 	
+	cut = len(sol)
+	
+	for i in range(len(sol)):
+		if sol[i][0] > length:
+			cut = i
+			break
+	
+	print("Time to Finish: " + str(t[i]))
+	
 	ax.plot(project(smooth, 0), project(smooth, 1), label = "shoulder", linewidth = 52, color = 'w')
 	ax.plot(project(smooth, 0), project(smooth, 1), label = "road", linewidth = 50, color = 'k')
 	ax.plot(project(smooth, 0), project(smooth, 1), label = "center line", linewidth = 3, linestyle = "--", color = 'y')
-	ax.plot(project(sol, 0), project(sol, 1), label = "path", color = 'red', linewidth = 2, linestyle = "-")
+	ax.plot(project(sol[:cut], 0), project(sol[:cut], 1), label = "path", color = 'red', linewidth = 2, linestyle = "-")
 	ax.set_xlim([-1.5, length + 1.30])
 	ax.set_ylim([-1.5, vert + 1.5])
 	ax.axis('off')
 	return fig
+
+center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
+
+def curve(t):
+		return np.array([t + sin(3.9*(t-5))*exp(-0.5*(t-5)**2), 6*exp(-(t-5)**2)])
+
+s = 1.69
+
+def cube_root(x):
+	return sign(x)*pow(abs(x), 1/3)
+
+def exp_thing(a, t):
+	return exp(-1/(5**(s*a)) * (t-5)**int(2*a))
+
+def nasty_curve(a, t):
+	return np.array([(5 + (a-1)*cube_root(sin(2*pi/10*t)))*exp_thing(a, t) + t * (1-exp_thing(a, t)), (6*t/10)*exp_thing(a, t) + 6/(1 + exp(5-t)) * (1-exp_thing(a,t))])
+	
 
 examples_dics = dict()
 
@@ -161,59 +187,72 @@ def run_example_NULL():
 	return fig
 
 
-def run_example_0(k_c):
+def run_example_0(k_c, a):
 	if not "kc:" + str(k_c) in examples_dics:
 		params = [k_c, 0, 0]
-		t_max = 20
-		center_line_func = lambda x : np.array([x, 6/(1 + exp(-(8*(x-5))))])
-		line = list(map(center_line_func, np.linspace(0, length, N)))
-		examples_dics["kc:" + str(k_c)] =  Graph(CRAPcontroller, params, line, t_max, np.array([0,0]), center_line_func)
+		t_max = 20*(1+a/6)
+		if a < 1 or a > 6:
+			func = center_line_func
+		else:
+			func = lambda x : nasty_curve(a, x)
+		line = list(map(func, np.linspace(0, length, N)))
+		examples_dics["kc:" + str(k_c)] =  Graph(CRAPcontroller, params, line, t_max, np.array([0,0]), func)
 		print("DID CALC")
 	return examples_dics["kc:" + str(k_c)]
 
-def run_example_1(k_p):
+def run_example_1(k_p, a):
 	if not "kp:" + str(k_p) in examples_dics:
 		params = [k_p, 0, 0]
-		t_max = 17
-		center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
-		line = list(map(center_line_func, np.linspace(0, length, N)))
-		examples_dics["kp:" + str(k_p)] = Graph(PIDcontroller, params, line, t_max, np.array([0,0]), center_line_func)
+		t_max = 17*(1+a/6)
+		if a < 1 or a > 6:
+			func = center_line_func
+		else:
+			func = lambda x : nasty_curve(a, x)
+		line = list(map(func, np.linspace(0, length, N)))
+		examples_dics["kp:" + str(k_p)] = Graph(PIDcontroller, params, line, t_max, np.array([0,0]), func)
 		print("DID CALC")
 	return examples_dics["kp:" + str(k_p)]
 
-def run_example_2(k_i):
+def run_example_2(k_i, a):
 	if not "ki:" + str(k_i) in examples_dics:
 		params = [10, k_i, 0]
-		t_max = 17
-		center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
-		line = list(map(center_line_func, np.linspace(0, length, N)))
-		examples_dics["ki:" + str(k_i)] = Graph(PIDcontroller, params, line, t_max, np.array([0,0]), center_line_func)
+		t_max = 17*(1+a/6)
+		if a < 1 or a > 6:
+			func = center_line_func
+		else:
+			func = lambda x : nasty_curve(a, x)
+		line = list(map(func, np.linspace(0, length, N)))
+		examples_dics["ki:" + str(k_i)] = Graph(PIDcontroller, params, line, t_max, np.array([0,0]), func)
 		print("DID CALC")
 	return examples_dics["ki:" + str(k_i)]
 
-def run_example_3(k_d):
+def run_example_3(k_d, a):
 	if not "kd:" + str(k_d) in examples_dics:
 		params = [10, 0, k_d]
-		t_max = 16
-		center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
-		line = list(map(center_line_func, np.linspace(0, length, N)))
-		examples_dics["kd:" + str(k_d)] = Graph(PIDcontroller, params, line, t_max, np.array([0,0]), center_line_func)
+		t_max = 16*(1+a/6)
+		if a < 1 or a > 6:
+			func = center_line_func
+		else:
+			func = lambda x : nasty_curve(a, x)
+		line = list(map(func, np.linspace(0, length, N)))
+		examples_dics["kd:" + str(k_d)] = Graph(PIDcontroller, params, line, t_max, np.array([0,0]), func)
 		print("DID CALC")
 	return examples_dics["kd:" + str(k_d)]
 
-def run_example_4(k_p, k_i, k_d):
+def run_example_4(k_p, k_i, k_d, a):
 	params = [k_p, k_i, k_d]
-	t_max = 16
-	center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
-	line = list(map(center_line_func, np.linspace(0, length, N)))
-	return Graph(PIDcontroller, params, line, t_max, np.array([0,0]), center_line_func)
+	t_max = 16*(1+a/6)
+	if a < 1 or a > 6:
+		func = center_line_func
+	else:
+		func = lambda x : nasty_curve(a, x)
+	line = list(map(func, np.linspace(0, length, N)))
+	return Graph(PIDcontroller, params, line, t_max, np.array([0,0]), func)
 
-def curve(t):
-		return np.array([t + sin(3.9*(t-5))*exp(-0.5*(t-5)**2), 6*exp(-(t-5)**2)])
 
 def run_example_play(k_p, k_i, k_d, mouse_x, mouse_y):
 	params = [k_p, k_i, k_d]
-	t_max = 22
+	t_max = 22*(1+a/6)
 	new_N = 50
 	line = list(map(curve, np.linspace(0, length, new_N)))
 	return Graph(PIDcontroller, params, line, t_max, np.array([mouse_x, mouse_y]), curve)
@@ -223,7 +262,7 @@ def startup_calculations():
 		run_example_0(k_c)
 	for k_p in np.linspace(0, 10, 10):
 		run_example_1(k_p)
-	for k_i in np.linspace(0, 2, 10):
+	for k_i in np.linspace(0, 1, 10):
 		run_example_2(k_i)
 	for k_d in np.linspace(0, 20, 10):
 		run_example_3(k_d)
