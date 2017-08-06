@@ -21,7 +21,8 @@
 #  MA 02110-1301, USA.
 #
 #
-
+import mathplotlib
+matplotlib.use('Agg')
 from math import *
 from scipy.integrate import odeint
 import numpy as np
@@ -38,7 +39,7 @@ def sign(x):
 		return 1
 	else:
 		return -1
-		
+
 def CRAPcontroller(x, y, theta, v, interror, params, line):
 	err = get_error(x, y, theta, v, interror, line)[0]
 	if err > rd_width:
@@ -91,13 +92,13 @@ def car_rate_of_change_function(controller, params, line):
 
 def project(arr, i):
 	return list(map(lambda x: x[i], arr))
-	
+
 def my_odeint(func, y0, t):
 	sol = [y0]*len(t)
 	dt = t[1] - t[0]
 	for i in range(len(t) - 1):
 		sol[i + 1] = sol[i] + np.array(func(sol[i], t[i]))*dt
-	return sol 
+	return sol
 
 def Graph(controller, params, line, t_max, N, initial_pos):
 	y0 = np.array([0, 0, 0, 1, 0])
@@ -136,7 +137,7 @@ def run_example_1(k_c):
 	length = 10
 	t_max = 30
 	center_line_func = lambda x : np.array([x, 6/(1 + exp(-(8*(x-5))))])
-	
+
 	line = list(map(center_line_func, np.linspace(0, length, N)))
 	return Graph(CRAPcontroller, params, line, t_max, Time_Num, np.array([0,0]))
 
@@ -147,10 +148,10 @@ def run_example_2(k_p):
 	length = 10
 	t_max = 30
 	center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
-	
+
 	line = list(map(center_line_func, np.linspace(0, length, N)))
 	return Graph(PIDcontroller, params, line, t_max, Time_Num, np.array([0,0]))
-	
+
 def run_example_3(k_i):
 	params = [10, k_i, 0]
 	N = 10
@@ -158,7 +159,6 @@ def run_example_3(k_i):
 	length = 10
 	t_max = 30
 	center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
-	
+
 	line = list(map(center_line_func, np.linspace(0, length, N)))
 	return Graph(PIDcontroller, params, line, t_max, Time_Num, np.array([0,0]))
-

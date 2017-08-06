@@ -1,3 +1,5 @@
+import mathplotlib
+matplotlib.use('Agg')
 from flask import Flask, render_template, request
 from src.run_examples import *
 import matplotlib.pyplot as plt, mpld3
