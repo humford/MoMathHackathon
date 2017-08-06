@@ -29,14 +29,25 @@ import numpy as np
 from matplotlib import pyplot as plt
 import matplotlib.patheffects as pe
 from time import time
+from operator import add
 
-max_rate = 6.28
+max_rate = 2.5
+rd_width = 0.22
 
 def sign(x):
 	if x >= 0:
 		return 1
 	else:
 		return -1
+		
+def CRAPcontroller(x, y, theta, v, interror, params, line):
+	err = get_error(x, y, theta, v, interror, line)[0]
+	if err > rd_width:
+		return params[0]
+	elif err < -rd_width:
+		return -params[0]
+	else:
+		return 0
 
 def PIDcontroller(x, y, theta, v, interror, params, line):
 	return np.dot(get_error(x, y, theta, v, interror, line), params)
@@ -81,36 +92,65 @@ def car_rate_of_change_function(controller, params, line):
 
 def project(arr, i):
 	return list(map(lambda x: x[i], arr))
+	
+def my_odeint(func, y0, t):
+	sol = [y0]*len(t)
+	dt = t[1] - t[0]
+	for i in range(len(t) - 1):
+		sol[i + 1] = sol[i] + np.array(func(sol[i], t[i]))*dt
+	return sol 
 
 def Graph(controller, params, line, t_max, N, initial_pos):
-	y0 = [0, 0, 0, 1, 0]
+	y0 = np.array([0, 0, 0, 1, 0])
 	t = np.linspace(0, t_max, N)
 	
 	start = time()
 	func = car_rate_of_change_function(controller, params, line)
-	sol = odeint(func, y0, t)
+	sol = my_odeint(func, y0, t)
 	print("Time: " + str(time() - start))
 	lables = ["x", "y", r"$\theta$", "v", r"$\int error$"]
 	
-	fig = plt.figure(facecolor='#576b0f')
+	fig = plt.figure(facecolor='#576b0f', figsize = (10,10))
 	ax = fig.add_subplot(111)
 	ax.plot(project(line, 0), project(line, 1), label = "center line", linewidth = 50, color = 'k',  path_effects=[pe.Stroke(linewidth = 53, foreground='w'), pe.Normal()])
 	ax.plot(project(line, 0), project(line, 1), label = "center line", linewidth = 3, linestyle = "--", color = 'y')
 	ax.plot(project(sol, 0), project(sol, 1), label = "path", color = 'red', linewidth = 2, linestyle = "-")
-	ax.set_xlim([-1, t_max + 1])
-	ax.set_ylim([-0.5, 1.5])
+	ax.set_xlim([-1.5, 11.30])
+	ax.set_ylim([-1.5, 7.5])
 	ax.axis('off')
 	return ax
 
 
-def center_line_func(x):
-	return np.array([x, 1/(1 + exp(-(2*(x-5))))])
-	
-def run_example_1(k_p):
-	params = [k_p, 0, 0]
-	N = 5
+def run_example_1(k_c):
+	params = [k_c, 0, 0]
+	N = 10
 	Time_Num = 1000
 	length = 10
+	t_max = 0
+	center_line_func = lambda x : np.array([x, 0/(1 + exp(-(10*(x-5))))])
+	
 	line = list(map(center_line_func, np.linspace(0, length, N)))
-	return Graph(PIDcontroller, params, line, length, Time_Num, np.array([0,0]))
+	return Graph(CRAPcontroller, params, line, t_max, Time_Num, np.array([0,0]))
+
+def run_example_2(k_p):
+	params = [k_p, 0, 0]
+	N = 10
+	Time_Num = 1000
+	length = 10
+	t_max = 30
+	center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
+	
+	line = list(map(center_line_func, np.linspace(0, length, N)))
+	return Graph(PIDcontroller, params, line, t_max, Time_Num, np.array([0,0]))
+	
+def run_example_3(k_i):
+	params = [10, k_i, 0]
+	N = 10
+	Time_Num = 1000
+	length = 10
+	t_max = 30
+	center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
+	
+	line = list(map(center_line_func, np.linspace(0, length, N)))
+	return Graph(PIDcontroller, params, line, t_max, Time_Num, np.array([0,0]))
 	
