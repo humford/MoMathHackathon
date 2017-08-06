@@ -108,13 +108,8 @@ def Graph(controller, params, line, t_max, N, initial_pos):
 	sol = my_odeint(func, y0, t)
 	print("Time: " + str(time() - start))
 	lables = ["x", "y", r"$\theta$", "v", r"$\int error$"]
-<<<<<<< HEAD
-	
+	lables = ["x", "y", r"$\theta$", "v", r"$\int error$"]
 	fig = plt.figure(facecolor='#576b0f', figsize = (10,10))
-=======
-
-	fig = plt.figure(facecolor='#576b0f')
->>>>>>> 0abf6a404b9641624bc6f8e5826f7c9d56c9275a
 	ax = fig.add_subplot(111)
 	ax.plot(project(line, 0), project(line, 1), label = "center line", linewidth = 50, color = 'k',  path_effects=[pe.Stroke(linewidth = 53, foreground='w'), pe.Normal()])
 	ax.plot(project(line, 0), project(line, 1), label = "center line", linewidth = 3, linestyle = "--", color = 'y')
@@ -134,7 +129,6 @@ def Show_Debug_Stats(controller, params, line, t_max, N):
 	print("Time: " + str(time() - start))
 	lables = ["x", "y", r"$\theta$", "v", r"$\int error$"]
 
-<<<<<<< HEAD
 def run_example_1(k_c):
 	params = [k_c, 0, 0]
 	N = 10
@@ -146,13 +140,10 @@ def run_example_1(k_c):
 	line = list(map(center_line_func, np.linspace(0, length, N)))
 	return Graph(CRAPcontroller, params, line, t_max, Time_Num, np.array([0,0]))
 
-def run_example_2(k_p):
-=======
 def center_line_func(x):
 	return np.array([x, 1/(1 + exp(-(2*(x-5))))])
 
-def run_example_1(k_p):
->>>>>>> 0abf6a404b9641624bc6f8e5826f7c9d56c9275a
+def run_example_2(k_p):
 	params = [k_p, 0, 0]
 	N = 10
 	Time_Num = 1000
@@ -172,9 +163,5 @@ def run_example_3(k_i):
 	center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
 	
 	line = list(map(center_line_func, np.linspace(0, length, N)))
-<<<<<<< HEAD
 	return Graph(PIDcontroller, params, line, t_max, Time_Num, np.array([0,0]))
-	
-=======
-	return Return_Graph(PIDcontroller, params, line, length, Time_Num)
->>>>>>> 0abf6a404b9641624bc6f8e5826f7c9d56c9275a
+
