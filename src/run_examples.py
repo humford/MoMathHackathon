@@ -164,7 +164,7 @@ def run_example_0(k_c):
 	if not "kc:" + str(k_c) in examples_dics:
 		params = [k_c, 0, 0]
 		t_max = 20
-		center_line_func = lambda x : np.array([x, 6/(1 + exp(-(8*(x-5))))])
+		center_line_func = lambda x : np.array([x, x])
 		line = list(map(center_line_func, np.linspace(0, length, N)))
 		examples_dics["kc:" + str(k_c)] =  Graph(CRAPcontroller, params, line, t_max, np.array([0,0]))
 		print("DID CALC")
@@ -210,7 +210,7 @@ def run_example_4(k_p, k_i, k_d):
 def run_example_play(k_p, k_i, k_d, mouse_x, mouse_y):
 	params = [k_p, k_i, k_d]
 	t_max = 16
-	center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
+	center_line_func = lambda x : np.array([0,0])
 	line = list(map(center_line_func, np.linspace(0, length, N)))
 	return Graph(PIDcontroller, params, line, t_max, np.array([mouse_x, mouse_y]))
 
