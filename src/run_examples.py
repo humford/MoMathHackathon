@@ -137,14 +137,11 @@ def Graph(controller, params, line, t_max, N, initial_pos):
 examples_dics = dict()
 
 def run_example_NULL():
-	N = 10
-	length = 10
-	line = list(map(lambda x:0, np.linspace(0, length, N)))
+	line = list(map(lambda x : (x, 0), np.linspace(0, length, N)))
 	fig = plt.figure(facecolor='#576b0f', figsize = (7,5))
 	ax = fig.add_subplot(111)
 	ax.plot(project(line, 0), project(line, 1), label = "center line", linewidth = 50, color = 'k',  path_effects=[pe.Stroke(linewidth = 53, foreground='w'), pe.Normal()])
 	ax.plot(project(line, 0), project(line, 1), label = "center line", linewidth = 3, linestyle = "--", color = 'y')
-	ax.plot(project(sol, 0), project(sol, 1), label = "path", color = 'red', linewidth = 2, linestyle = "-")
 	ax.set_xlim([-1.5, 11.30])
 	ax.set_ylim([-1.5, 7.5])
 	ax.axis('off')
