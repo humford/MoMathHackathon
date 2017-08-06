@@ -47,7 +47,7 @@ def Show_Debug_Stats(controller, params, line, t_max, N):
 
 
 def main(args):
-	run_example_1(10, 0)
+	run_example_1(5, 0)
 	#run_example_play(10,0,20,0,0)
 	#plt.savefig("road.png")
 	plt.show()

@@ -22,7 +22,6 @@
 #
 #
 import matplotlib
-matplotlib.use('Agg')
 from math import *
 from scipy.integrate import odeint
 import numpy as np
@@ -191,17 +190,19 @@ def run_example_NULL():
 	plt.imshow(car, extent = [-0.5, 0.5, -0.3, 0.3], origin = 'lower left', zorder= 1)
 	return fig
 
-first_time = True
+defaul_settings = [0.6, 5, 0.2, 10]
 
 def get_key(ident, k, a):
 	return str(ident) + "k:" + str(int(100*k)) + "rd:" + str(a)
 
 def run_example_0(k_c, a):
-	if not first_time or not get_key(0, k_c, a) in examples_dics:
-		for nk_c in np.linspace(0, 2, 11):
-			example0_body(nk_c, a)
+	if not get_key(0, k_c, a) in examples_dics:
+		if k_c == defaul_settings[0]:
+			example0_body(k_c, a)
+		else:
+			for nk_c in np.linspace(0, 2, 11):
+				example0_body(nk_c, a)
 		print("DID CALC")
-	first_time = False
 	
 	return examples_dics[get_key(0, k_c, a)]
 
@@ -216,11 +217,13 @@ def example0_body(k_c, a):
 	examples_dics[get_key(0, k_c, a)] =  Graph(CRAPcontroller, params, line, t_max, np.array([0,0]), func)
 
 def run_example_1(k_p, a):
-	if not first_time or not get_key(1, k_p, a) in examples_dics:
-		for nk_p in np.linspace(0, 10, 11):
-			example1_body(nk_p, a)
+	if not get_key(1, k_p, a) in examples_dics:
+		if k_p == defaul_settings[1]:
+			example1_body(k_p, a)
+		else:
+			for nk_p in np.linspace(0, 10, 11):
+				example1_body(nk_p, a)
 		print("DID CALC")
-	first_time = False
 	
 	return examples_dics[get_key(1, k_p, a)]
 
@@ -236,12 +239,14 @@ def example1_body(k_p, a):
 
 
 def run_example_2(k_i, a):
-	if not first_time or not get_key(2, k_i, a) in examples_dics:
-		for nk_i in np.linspace(0, 1, 11):
-			example2_body(nk_i, a)
+	if not get_key(2, k_i, a) in examples_dics:
+		if k_i == defaul_settings[2]:
+			example2_body(k_i, a)
+		else:
+			for nk_i in np.linspace(0, 1, 11):
+				example2_body(nk_i, a)
 		print("DID CALC")
-	first_time = False
-	
+
 	return examples_dics[get_key(2, k_i, a)]
 
 def example2_body(k_i, a):
@@ -255,11 +260,13 @@ def example2_body(k_i, a):
 	examples_dics[get_key(2, k_i, a)] = Graph(PIDcontroller, params, line, t_max, np.array([0,0]), func)
 
 def run_example_3(k_d, a):
-	if not first_time or not get_key(3, k_d, a) in examples_dics:
-		for nk_d in np.linspace(0, 20, 11):
-			example3_body(nk_d, a)
+	if not get_key(3, k_d, a) in examples_dics:
+		if k_d == defaul_settings[3]:
+			example3_body(k_d, a)
+		else:
+			for nk_d in np.linspace(0, 20, 11):
+				example3_body(nk_d, a)
 		print("DID CALC")
-	first_time = False
 	
 	return examples_dics[get_key(3, k_d, a)]
 
@@ -291,9 +298,3 @@ def run_example_play(k_p, k_i, k_d, mouse_x, mouse_y):
 	line = list(map(curve, np.linspace(0, length, new_N)))
 	return Graph(PIDcontroller, params, line, t_max, np.array([mouse_x, mouse_y]), curve)
 
-def startup_calculations():
-	example0_body(0.6, 0)
-	example1_body(5, 0)
-	example2_body(0.2, 0)
-	example3_body(10, 0)
-	print("SETUP COMPLETE")
