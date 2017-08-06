@@ -202,7 +202,7 @@ def run_example_0(k_c, a):
 		print("DID CALC")
 	print(examples_dics)
 	return examples_dics[get_key(0, k_c, a)]
-	
+
 def example0_body(k_c, a):
 	params = [k_c, 0, 0]
 	t_max = 20*(1+a/6)
