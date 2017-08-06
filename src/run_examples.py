@@ -22,7 +22,7 @@
 #
 #
 import matplotlib
-matplotlib.use('Agg')
+#matplotlib.use('Agg')
 from math import *
 from scipy.integrate import odeint
 import numpy as np
@@ -33,6 +33,7 @@ from operator import add
 
 max_rate = 2.5
 rd_width = 0.75
+max_steps = 1000
 
 def sign(x):
 	if x >= 0:
@@ -106,9 +107,8 @@ def Graph(controller, params, line, t_max, N, initial_pos):
 
 	start = time()
 	func = car_rate_of_change_function(controller, params, line)
-	sol = odeint(func, y0, t)
+	sol = odeint(func, y0, t, mxstep = max_steps)
 	print("Time: " + str(time() - start))
-	lables = ["x", "y", r"$\theta$", "v", r"$\int error$"]
 	lables = ["x", "y", r"$\theta$", "v", r"$\int error$"]
 	fig = plt.figure(facecolor='#576b0f', figsize = (7,5))
 	ax = fig.add_subplot(111)
@@ -129,6 +129,18 @@ def Show_Debug_Stats(controller, params, line, t_max, N):
 	sol = odeint(func, y0, t)
 	print("Time: " + str(time() - start))
 	lables = ["x", "y", r"$\theta$", "v", r"$\int error$"]
+
+def run_example_NULL():
+	params = [k_c/15, 0, 0]
+	N = 10
+	Time_Num = 10000
+	length = 10
+	t_max = 0
+	center_line_func = lambda x : np.array([x, 0])
+
+	line = list(map(center_line_func, np.linspace(0, length, N)))
+	return Graph(CRAPcontroller, params, line, t_max, Time_Num, np.array([0,0]))
+
 
 def run_example_0(k_c):
 	params = [k_c/15, 0, 0]
