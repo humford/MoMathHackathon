@@ -49,9 +49,9 @@ def Show_Debug_Stats(controller, params, line, t_max, N):
 def main(args):
 	params = [10, 1, 0]
 	N = 10
-	Time_Num = 10000
+	Time_Num = 1000
 	length = 10
-	t_max = 20
+	t_max = 35
 	center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
 
 	line = list(map(center_line_func, np.linspace(0, length, N)))
@@ -59,7 +59,7 @@ def main(args):
 	
 	#input()
 	
-	run_example_3(1)
+	run_example_play(10,0,20,0,0)
 	#plt.savefig("road.png")
 	plt.show()
 

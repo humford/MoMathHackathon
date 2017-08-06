@@ -38,6 +38,7 @@ max_steps = 1000
 Time_Num = 1000
 N = 10
 length = 10
+vert = 6
 
 def sign(x):
 	if x >= 0:
@@ -136,8 +137,8 @@ def Graph(controller, params, line, t_max, initial_pos, line_func):
 	ax.plot(project(smooth, 0), project(smooth, 1), label = "road", linewidth = 50, color = 'k')
 	ax.plot(project(smooth, 0), project(smooth, 1), label = "center line", linewidth = 3, linestyle = "--", color = 'y')
 	ax.plot(project(sol, 0), project(sol, 1), label = "path", color = 'red', linewidth = 2, linestyle = "-")
-	ax.set_xlim([-1.5, 11.30])
-	ax.set_ylim([-1.5, 7.5])
+	ax.set_xlim([-1.5, length + 1.30])
+	ax.set_ylim([-1.5, vert + 1.5])
 	ax.axis('off')
 	return fig
 
@@ -207,12 +208,15 @@ def run_example_4(k_p, k_i, k_d):
 	line = list(map(center_line_func, np.linspace(0, length, N)))
 	return Graph(PIDcontroller, params, line, t_max, np.array([0,0]), center_line_func)
 
+def curve(t):
+		return np.array([t + sin(3.9*(t-5))*exp(-0.5*(t-5)**2), 6*exp(-(t-5)**2)])
+
 def run_example_play(k_p, k_i, k_d, mouse_x, mouse_y):
 	params = [k_p, k_i, k_d]
-	t_max = 16
-	center_line_func = lambda x : np.array([0, 0])
-	line = list(map(center_line_func, np.linspace(0, length, N)))
-	return Graph(PIDcontroller, params, line, t_max, np.array([mouse_x, mouse_y]), center_line_func)
+	t_max = 22
+	new_N = 50
+	line = list(map(curve, np.linspace(0, length, new_N)))
+	return Graph(PIDcontroller, params, line, t_max, np.array([mouse_x, mouse_y]), curve)
 
 def startup_calculations():
 	for k_c in np.linspace(0, 2, 10):
