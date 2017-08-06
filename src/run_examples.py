@@ -130,7 +130,7 @@ def Graph(controller, params, line, t_max, initial_pos, line_func):
 	smooth = list(map(line_func, xnew))
 
 	lables = ["x", "y", r"$\theta$", "v", r"$\int error$"]
-	fig = plt.figure(facecolor='#576b0f', figsize = (7,5))
+	fig = plt.figure(facecolor='#576b0f', figsize = (7,4))
 	ax = fig.add_subplot(111)
 
 	cut = len(sol)
@@ -176,14 +176,14 @@ def run_example_NULL():
 	xnew = np.linspace(line[0][0],line[N-1][0], 100)
 	smooth = list(map(interp1d(project(line, 0), project(line, 1)), xnew))
 
-	fig = plt.figure(facecolor='#576b0f', figsize = (7,5))
+	fig = plt.figure(facecolor='#576b0f', figsize = (7,2))
 	ax = fig.add_subplot(111)
 
 	ax.plot(xnew, smooth, linewidth = 52, color = 'w')
 	ax.plot(xnew, smooth, linewidth = 50, color = 'k')
 	ax.plot(xnew, smooth, linewidth = 3, linestyle = "--", color = 'y')
 	ax.set_xlim([-1.5, 11.30])
-	ax.set_ylim([-1.5, 7.5])
+	ax.set_ylim([-1.5, 1.5])
 	ax.axis('off')
 	return fig
 
