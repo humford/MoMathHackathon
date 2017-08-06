@@ -148,7 +148,7 @@ def Graph(controller, params, line, t_max, initial_pos, line_func):
 	ax.plot(project(sol[:cut], 0), project(sol[:cut], 1), label = "path", color = 'red', linewidth = 2, linestyle = "-")
 	ax.set_xlim([-1.5, length + 1.30])
 	ax.set_ylim([-1.5, vert + 1.5])
-	ax.text(0.9, 1.1, "Time: " + str(round(t[i])) + "(s)")
+	ax.text(0.9, 1.1, "Time: " + str(round(t[i], 1)) + "(s)")
 	ax.axis('off')
 	return fig
 
@@ -189,53 +189,66 @@ def run_example_NULL():
 
 
 def get_key(ident, k, a):
-	return str(ident) + "k:" + str(k) + "rd:" + str(a)
+	return str(ident) + "k:" + str(int(100*k)) + "rd:" + str(a)
 
 def run_example_0(k_c, a):
 	if not get_key(0, k_c, a) in examples_dics:
-		params = [k_c, 0, 0]
-		t_max = 20*(1+a/6)
-		if a < 1 or a > 6:
-			func = center_line_func
-		else:
-			func = lambda x : nasty_curve(a, x)
-		line = list(map(func, np.linspace(0, length, N)))
-		examples_dics[get_key(0, k_c, a)] =  Graph(CRAPcontroller, params, line, t_max, np.array([0,0]), func)
+		for nk_c in np.linspace(0, 2, 11):
+			example0_body(nk_c, a)
 		print("DID CALC")
+	print(examples_dics)
 	return examples_dics[get_key(0, k_c, a)]
+	
+def example0_body(k_c, a):
+	params = [k_c, 0, 0]
+	t_max = 20*(1+a/6)
+	if a < 1 or a > 6:
+		func = center_line_func
+	else:
+		func = lambda x : nasty_curve(a, x)
+	line = list(map(func, np.linspace(0, length, N)))
+	examples_dics[get_key(0, k_c, a)] =  Graph(CRAPcontroller, params, line, t_max, np.array([0,0]), func)
 
 def run_example_1(k_p, a):
 	if not get_key(1, k_p, a) in examples_dics:
-		params = [k_p, 0, 0]
-		t_max = 17*(1+a/6)
-		if a < 1 or a > 6:
-			func = center_line_func
-		else:
-			func = lambda x : nasty_curve(a, x)
-		line = list(map(func, np.linspace(0, length, N)))
-		examples_dics[get_key(1, k_p, a)] = Graph(PIDcontroller, params, line, t_max, np.array([0,0]), func)
+		for nk_p in np.linspace(0, 10, 11):
+			example1_body(nk_p, a)
 		print("DID CALC")
+	print(examples_dics)
 	return examples_dics[get_key(1, k_p, a)]
 
+def example1_body(k_p, a):
+	params = [k_p, 0, 0]
+	t_max = 17*(1+a/6)
+	if a < 1 or a > 6:
+		func = center_line_func
+	else:
+		func = lambda x : nasty_curve(a, x)
+	line = list(map(func, np.linspace(0, length, N)))
+	examples_dics[get_key(1, k_p, a)] = Graph(PIDcontroller, params, line, t_max, np.array([0,0]), func)
 
 
 def run_example_2(k_i, a):
 	if not get_key(2, k_i, a) in examples_dics:
-		params = [10, k_i, 0]
-		t_max = 17*(1+a/6)
-		if a < 1 or a > 6:
-			func = center_line_func
-		else:
-			func = lambda x : nasty_curve(a, x)
-		line = list(map(func, np.linspace(0, length, N)))
-		examples_dics[get_key(2, k_i, a)] = Graph(PIDcontroller, params, line, t_max, np.array([0,0]), func)
+		for nk_i in np.linspace(0, 1, 11):
+			example2_body(nk_i, a)
 		print("DID CALC")
 	return examples_dics[get_key(2, k_i, a)]
 
+def example2_body(k_i, a):
+	params = [10, k_i, 0]
+	t_max = 17*(1+a/6)
+	if a < 1 or a > 6:
+		func = center_line_func
+	else:
+		func = lambda x : nasty_curve(a, x)
+	line = list(map(func, np.linspace(0, length, N)))
+	examples_dics[get_key(2, k_i, a)] = Graph(PIDcontroller, params, line, t_max, np.array([0,0]), func)
+
 def run_example_3(k_d, a):
 	if not get_key(3, k_d, a) in examples_dics:
-		for k_d in np.linspace(0, 20, 10):
-			example3_body(k_d, a)
+		for nk_d in np.linspace(0, 20, 11):
+			example3_body(nk_d, a)
 		print("DID CALC")
 	return examples_dics[get_key(3, k_d, a)]
 
@@ -268,12 +281,12 @@ def run_example_play(k_p, k_i, k_d, mouse_x, mouse_y):
 	return Graph(PIDcontroller, params, line, t_max, np.array([mouse_x, mouse_y]), curve)
 
 def startup_calculations():
-	for k_c in np.linspace(0, 2, 10):
+	for k_c in np.linspace(0, 2, 11):
 		run_example_0(k_c)
-	for k_p in np.linspace(0, 10, 10):
+	for k_p in np.linspace(0, 10, 11):
 		run_example_1(k_p)
-	for k_i in np.linspace(0, 1, 10):
+	for k_i in np.linspace(0, 1, 11):
 		run_example_2(k_i)
-	for k_d in np.linspace(0, 20, 10):
+	for k_d in np.linspace(0, 20, 11):
 		run_example_3(k_d)
 	print("SETUP COMPLETE")
