@@ -9,7 +9,7 @@ Our project explores control theory and feedback from a visual and intuitive per
 
 Although highly important to and inspired by engineering, control theory and the larger theory of dynamical systems is highly important in pure and applied mathematics for it forms of the foundation of studies of chaotic and ergodic systems. PID controllers in particular serve as an intuitive representation of the applications of calculus, and thusly blend learning about the underlying mathematical concepts with learning their uses. 
 
-The implimentation we built shows the behavior of a second-order differential system under various simple control schemes. The project uses numerical integration to calculate the paths with our error measure being the minimum distance to the target path. These functions representing these paths are shown symbolically and the paths are represented visually on a dynamic web-app.
+The implementation we built shows the behavior of a second-order differential system under various simple control schemes. The project uses numerical integration to calculate the paths with our error measure being the minimum distance to the target path. These functions representing these paths are shown symbolically and the paths are represented visually on a dynamic web-app.
 
 ## The Submission
 
@@ -25,7 +25,7 @@ Research has shown intuitive introductions to the topics of calculus is often mo
 
 We have provided two methods of interfacing with our web app:
 1. A hosted web-service on the free Heroku hosting platform: [webapp](https://momathhackathon.herokuapp.com/)
-  * Since this is a free hosting service, this version is extremely slow and cannot handle many users at a time, it is purely for demonstration purposes
+   * Since this is a free hosting service, this version is extremely slow and cannot handle many users at a time, it is purely for demonstration purposes
 2. A Python Flask server to be run on either a users computer or a computer hosting an exhibit
 
 To host the server locally:
