@@ -21,7 +21,7 @@
 #  MA 02110-1301, USA.
 #
 #
-import mathplotlib
+import matplotlib
 matplotlib.use('Agg')
 from math import *
 from scipy.integrate import odeint

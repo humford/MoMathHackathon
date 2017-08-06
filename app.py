@@ -1,4 +1,4 @@
-import mathplotlib
+import matplotlib
 matplotlib.use('Agg')
 from flask import Flask, render_template, request
 from src.run_examples import *
