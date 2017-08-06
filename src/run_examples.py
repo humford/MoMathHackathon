@@ -191,21 +191,23 @@ def run_example_NULL():
 	plt.imshow(car, extent = [-0.5, 0.5, -0.3, 0.3], origin = 'lower left', zorder= 1)
 	return fig
 
+first_time = True
 
 def get_key(ident, k, a):
 	return str(ident) + "k:" + str(int(100*k)) + "rd:" + str(a)
 
 def run_example_0(k_c, a):
-	if not get_key(0, k_c, a) in examples_dics:
+	if not first_time or not get_key(0, k_c, a) in examples_dics:
 		for nk_c in np.linspace(0, 2, 11):
 			example0_body(nk_c, a)
 		print("DID CALC")
-	print(examples_dics)
+	first_time = False
+	
 	return examples_dics[get_key(0, k_c, a)]
 
 def example0_body(k_c, a):
 	params = [k_c, 0, 0]
-	t_max = 20*(1+a/6)
+	t_max = 20*(1 + a/6)
 	if a < 1 or a > 6:
 		func = center_line_func
 	else:
@@ -214,16 +216,17 @@ def example0_body(k_c, a):
 	examples_dics[get_key(0, k_c, a)] =  Graph(CRAPcontroller, params, line, t_max, np.array([0,0]), func)
 
 def run_example_1(k_p, a):
-	if not get_key(1, k_p, a) in examples_dics:
+	if not first_time or not get_key(1, k_p, a) in examples_dics:
 		for nk_p in np.linspace(0, 10, 11):
 			example1_body(nk_p, a)
 		print("DID CALC")
-	print(examples_dics)
+	first_time = False
+	
 	return examples_dics[get_key(1, k_p, a)]
 
 def example1_body(k_p, a):
 	params = [k_p, 0, 0]
-	t_max = 17*(1+a/6)
+	t_max = 17*(1 + a/6)
 	if a < 1 or a > 6:
 		func = center_line_func
 	else:
@@ -233,15 +236,17 @@ def example1_body(k_p, a):
 
 
 def run_example_2(k_i, a):
-	if not get_key(2, k_i, a) in examples_dics:
+	if not first_time or not get_key(2, k_i, a) in examples_dics:
 		for nk_i in np.linspace(0, 1, 11):
 			example2_body(nk_i, a)
 		print("DID CALC")
+	first_time = False
+	
 	return examples_dics[get_key(2, k_i, a)]
 
 def example2_body(k_i, a):
 	params = [10, k_i, 0]
-	t_max = 17*(1+a/6)
+	t_max = 17*(1 + a/6)
 	if a < 1 or a > 6:
 		func = center_line_func
 	else:
@@ -250,10 +255,12 @@ def example2_body(k_i, a):
 	examples_dics[get_key(2, k_i, a)] = Graph(PIDcontroller, params, line, t_max, np.array([0,0]), func)
 
 def run_example_3(k_d, a):
-	if not get_key(3, k_d, a) in examples_dics:
+	if not first_time or not get_key(3, k_d, a) in examples_dics:
 		for nk_d in np.linspace(0, 20, 11):
 			example3_body(nk_d, a)
 		print("DID CALC")
+	first_time = False
+	
 	return examples_dics[get_key(3, k_d, a)]
 
 def example3_body(k_d, a):
@@ -268,7 +275,7 @@ def example3_body(k_d, a):
 
 def run_example_4(k_p, k_i, k_d, a):
 	params = [k_p, k_i, k_d]
-	t_max = 16*(1+a/6)
+	t_max = 16*(1 + a/6)
 	if a < 1 or a > 6:
 		func = center_line_func
 	else:
