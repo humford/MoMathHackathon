@@ -8,6 +8,7 @@
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.8.1/bootstrap-slider.min.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.0.0/anchor.min.js"></script>
   </head>
   <body>
     <div class='container'>
@@ -17,6 +18,15 @@
         <div class='col-lg-10'>
           <div class='page-header'>
             <h3 class='text-muted'>MoMath Hackathon - Control Theory</h3>
+          </div>
+
+          <div class="jumbotron">
+            <h1>How do self-driving cars work?</h1>
+            <p>Human drivers use their eyes and brains to follow the road,
+               but how do we get robots to do the same? The answer will take us
+               on an exciting journey into mathematics!
+            </p>
+            <p><a class="btn btn-primary btn-lg" href="#autonomous-cars" role="button">Get Started</a></p>
           </div>
 
           <div class="panel panel-default">
@@ -91,7 +101,7 @@
 
           <footer class='footer'>
             <p>
-              &copy;<a href='https://www.github.com/humford'> Henry Williams</a> and<a href='https://github.com/benvchurch'> Benjamin Church</a>
+              &copy; <a href='https://www.github.com/humford'>Henry Williams</a> and <a href='https://github.com/benvchurch'>Benjamin Church</a>
             </p>
           </footer>
         </div>
@@ -163,6 +173,10 @@
         return false;
       });
     });
+  </script>
+
+  <script>
+    anchors.add();
   </script>
   </body>
 </html>
