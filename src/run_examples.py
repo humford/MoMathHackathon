@@ -134,14 +134,17 @@ def Graph(controller, params, line, t_max, N, initial_pos):
 examples_dics = dict()
 
 def run_example_NULL():
-	params = [0, 0, 0]
 	N = 10
-	Time_Num = 0
-	length = 10
-	t_max = 0
-	center_line_func = lambda x : np.array([x, 0])
-	line = list(map(center_line_func, np.linspace(0, length, N)))
-	return Graph(CRAPcontroller, params, line, t_max, Time_Num, np.array([0,0]))
+	line = list(map(lambda x:0, np.linspace(0, length, N)))
+	fig = plt.figure(facecolor='#576b0f', figsize = (7,5))
+	ax = fig.add_subplot(111)
+	ax.plot(project(line, 0), project(line, 1), label = "center line", linewidth = 50, color = 'k',  path_effects=[pe.Stroke(linewidth = 53, foreground='w'), pe.Normal()])
+	ax.plot(project(line, 0), project(line, 1), label = "center line", linewidth = 3, linestyle = "--", color = 'y')
+	ax.plot(project(sol, 0), project(sol, 1), label = "path", color = 'red', linewidth = 2, linestyle = "-")
+	ax.set_xlim([-1.5, 11.30])
+	ax.set_ylim([-1.5, 7.5])
+	ax.axis('off')
+	return fig
 
 
 def run_example_0(k_c):
@@ -154,7 +157,7 @@ def run_example_0(k_c):
 		center_line_func = lambda x : np.array([x, 6/(1 + exp(-(8*(x-5))))])
 		line = list(map(center_line_func, np.linspace(0, length, N)))
 		examples_dics["kc:" + str(k_c)] =  Graph(CRAPcontroller, params, line, t_max, Time_Num, np.array([0,0]))
-	
+		print("DID CALC")
 	return examples_dics["kc:" + str(k_c)]
 
 def run_example_1(k_p):
@@ -165,9 +168,9 @@ def run_example_1(k_p):
 		length = 10
 		t_max = 17
 		center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
-
 		line = list(map(center_line_func, np.linspace(0, length, N)))
 		examples_dics["kp:" + str(k_p)] = Graph(PIDcontroller, params, line, t_max, Time_Num, np.array([0,0]))
+		print("DID CALC")
 	return examples_dics["kp:" + str(k_p)]
 
 def run_example_2(k_i):
@@ -180,6 +183,7 @@ def run_example_2(k_i):
 		center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
 		line = list(map(center_line_func, np.linspace(0, length, N)))
 		examples_dics["ki:" + str(k_i)] = Graph(PIDcontroller, params, line, t_max, Time_Num, np.array([0,0]))
+		print("DID CALC")
 	return examples_dics["ki:" + str(k_i)]
 	
 def run_example_3(k_d):
@@ -192,6 +196,7 @@ def run_example_3(k_d):
 		center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
 		line = list(map(center_line_func, np.linspace(0, length, N)))
 		examples_dics["kd:" + str(k_d)] = Graph(PIDcontroller, params, line, t_max, Time_Num, np.array([0,0]))
+		print("DID CALC")
 	return examples_dics["kd:" + str(k_d)]
 
 def run_example_4(k_p, k_i, k_d):
