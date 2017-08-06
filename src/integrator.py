@@ -44,6 +44,8 @@ def Show_Debug_Stats(controller, params, line, t_max, N):
 	plt.show()
 
 
+
+
 def main(args):
 	params = [10, 1, 0]
 	N = 10
@@ -56,8 +58,7 @@ def main(args):
 	#Show_Debug_Stats(PIDcontroller, params, line, t_max, Time_Num)
 	
 	#input()
-	run_example_NULL()
-	plt.show()
+	
 	run_example_3(1)
 	#plt.savefig("road.png")
 	plt.show()

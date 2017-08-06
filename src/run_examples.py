@@ -116,7 +116,7 @@ def my_odeint(func, y0, t):
 		sol[i + 1] = sol[i] + np.array(func(sol[i], t[i]))*dt
 	return sol
 
-def Graph(controller, params, line, t_max, initial_pos):
+def Graph(controller, params, line, t_max, initial_pos, line_func):
 	y0 = np.array([initial_pos[0], initial_pos[1], 0, 1, 0])
 	t = np.linspace(0, t_max, Time_Num)
 
@@ -125,16 +125,16 @@ def Graph(controller, params, line, t_max, initial_pos):
 	sol = my_odeint(func, y0, t)
 	print("Time: " + str(time() - start))
 
-	xnew = np.linspace(line[0][0],line[N-1][0], 100)
-	smooth = list(map(interp1d(project(line, 0), project(line, 1)), xnew))
+	xnew = np.linspace(0, length, 100)
+	smooth = list(map(line_func, xnew))
 	
 	lables = ["x", "y", r"$\theta$", "v", r"$\int error$"]
 	fig = plt.figure(facecolor='#576b0f', figsize = (7,5))
 	ax = fig.add_subplot(111)
 	
-	ax.plot(xnew, smooth, label = "shoulder", linewidth = 52, color = 'w')
-	ax.plot(xnew, smooth, label = "road", linewidth = 50, color = 'k')
-	ax.plot(xnew, smooth, label = "center line", linewidth = 3, linestyle = "--", color = 'y')
+	ax.plot(project(smooth, 0), project(smooth, 1), label = "shoulder", linewidth = 52, color = 'w')
+	ax.plot(project(smooth, 0), project(smooth, 1), label = "road", linewidth = 50, color = 'k')
+	ax.plot(project(smooth, 0), project(smooth, 1), label = "center line", linewidth = 3, linestyle = "--", color = 'y')
 	ax.plot(project(sol, 0), project(sol, 1), label = "path", color = 'red', linewidth = 2, linestyle = "-")
 	ax.set_xlim([-1.5, 11.30])
 	ax.set_ylim([-1.5, 7.5])
@@ -164,9 +164,9 @@ def run_example_0(k_c):
 	if not "kc:" + str(k_c) in examples_dics:
 		params = [k_c, 0, 0]
 		t_max = 20
-		center_line_func = lambda x : np.array([x, x])
+		center_line_func = lambda x : np.array([x, 6/(1 + exp(-(8*(x-5))))])
 		line = list(map(center_line_func, np.linspace(0, length, N)))
-		examples_dics["kc:" + str(k_c)] =  Graph(CRAPcontroller, params, line, t_max, np.array([0,0]))
+		examples_dics["kc:" + str(k_c)] =  Graph(CRAPcontroller, params, line, t_max, np.array([0,0]), center_line_func)
 		print("DID CALC")
 	return examples_dics["kc:" + str(k_c)]
 
@@ -176,7 +176,7 @@ def run_example_1(k_p):
 		t_max = 17
 		center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
 		line = list(map(center_line_func, np.linspace(0, length, N)))
-		examples_dics["kp:" + str(k_p)] = Graph(PIDcontroller, params, line, t_max, np.array([0,0]))
+		examples_dics["kp:" + str(k_p)] = Graph(PIDcontroller, params, line, t_max, np.array([0,0]), center_line_func)
 		print("DID CALC")
 	return examples_dics["kp:" + str(k_p)]
 
@@ -186,7 +186,7 @@ def run_example_2(k_i):
 		t_max = 17
 		center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
 		line = list(map(center_line_func, np.linspace(0, length, N)))
-		examples_dics["ki:" + str(k_i)] = Graph(PIDcontroller, params, line, t_max, np.array([0,0]))
+		examples_dics["ki:" + str(k_i)] = Graph(PIDcontroller, params, line, t_max, np.array([0,0]), center_line_func)
 		print("DID CALC")
 	return examples_dics["ki:" + str(k_i)]
 
@@ -196,7 +196,7 @@ def run_example_3(k_d):
 		t_max = 16
 		center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
 		line = list(map(center_line_func, np.linspace(0, length, N)))
-		examples_dics["kd:" + str(k_d)] = Graph(PIDcontroller, params, line, t_max, np.array([0,0]))
+		examples_dics["kd:" + str(k_d)] = Graph(PIDcontroller, params, line, t_max, np.array([0,0]), center_line_func)
 		print("DID CALC")
 	return examples_dics["kd:" + str(k_d)]
 
@@ -205,14 +205,14 @@ def run_example_4(k_p, k_i, k_d):
 	t_max = 16
 	center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
 	line = list(map(center_line_func, np.linspace(0, length, N)))
-	return Graph(PIDcontroller, params, line, t_max, np.array([0,0]))
+	return Graph(PIDcontroller, params, line, t_max, np.array([0,0]), center_line_func)
 
 def run_example_play(k_p, k_i, k_d, mouse_x, mouse_y):
 	params = [k_p, k_i, k_d]
 	t_max = 16
-	center_line_func = lambda x : np.array([0,0])
+	center_line_func = lambda x : np.array([0, 0])
 	line = list(map(center_line_func, np.linspace(0, length, N)))
-	return Graph(PIDcontroller, params, line, t_max, np.array([mouse_x, mouse_y]))
+	return Graph(PIDcontroller, params, line, t_max, np.array([mouse_x, mouse_y]), center_line_func)
 
 def startup_calculations():
 	for k_c in np.linspace(0, 2, 10):
