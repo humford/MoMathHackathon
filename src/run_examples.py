@@ -150,7 +150,6 @@ def Graph(controller, params, line, t_max, initial_pos, line_func):
 	ax.set_xlim([-1.5, length + 1.30])
 	ax.set_ylim([-1.5, vert + 1.5])
 	ax.text(0.9, 1.1, "Time: " + str(round(t[i], 1)) + "(s)")
-	ax.axis('off')
 	plt.imshow(car, extent = [-0.5, 0.5, -0.3, 0.3], origin = 'lower left', zorder= 1)
 	return fig
 
@@ -186,7 +185,6 @@ def run_example_NULL():
 	ax.plot(xnew, smooth, linewidth = 3, linestyle = "--", color = 'y', zorder = -1)
 	ax.set_xlim([-1.5, 11.30])
 	ax.set_ylim([-1.5, 1.5])
-	ax.axis('off')
 	plt.imshow(car, extent = [-0.5, 0.5, -0.3, 0.3], origin = 'lower left', zorder= 1)
 	return fig
 
