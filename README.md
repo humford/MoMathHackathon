@@ -1,6 +1,6 @@
-# MoMath Hackathon 2017: Dr. PIDlove or how I learned to stop worrying and love the feedback
+# MoMath Hackathon 2017: Control Theory, the Math of Self-Driving Cars
 
-- _Math Exploration_
+- _Math Exploration: Other Stack_ 
 - Henry Williams and Benjamin Church
 
 ## The Math
@@ -15,8 +15,4 @@ A short but thorough explanation of your submission. What is the mathematical "p
 
 ## Additional Notes
 
-Anything we should know about the code, the team, or anything else.
-
----
-
-Along with this completed readme, this repository should contain **the single file** or files needed for your submission. For example, if this submission is a _Math Square_ behavior, only submit the JavaScript or TypeScript file containing the behavior, not the entire source of the exhibit.
+### Usage
