@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang='en'>
   <head>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link href='https://bootswatch.com/lumen/bootstrap.min.css' rel='stylesheet'>
     <link src='/public/css/jumbotron-narrow.css' rel='stylesheet'>
     <link href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.8.1/css/bootstrap-slider.min.css' rel='stylesheet'>
@@ -96,7 +97,7 @@
               <h3 class="panel-title">Try it Out!</h3>
             </div>
             <div class="panel-body">
-              <div id="example-5-results"></div>
+              <a href="javascript:void();" id="example-5"><div id="example-5-results"></div></a>
               Sensitivity to angle: <a href="javascript:void();" id="example-5-a"><input name="example-5-a" id="ex5-a" data-slider-id='ex5Slider' type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="5"/></a>
               <br>Sensitivity to summative: <a href="javascript:void();" id="example-5-b"><input name="example-5-b" id="ex5-b" data-slider-id='ex5Slider' type="text" data-slider-min="0" data-slider-max="2" data-slider-step="0.2" data-slider-value="0.2"/></a>
               <br>Sensitivity to derivative: <a href="javascript:void();" id="example-5-c"><input name="example-5-c" id="ex5-c" data-slider-id='ex5Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="2" data-slider-value="10"/></a>
@@ -185,7 +186,7 @@
       $.get('/_example-2', {}, function(data) {$("#example-2-results").html(data);});
       $.get('/_example-3', {}, function(data) {$("#example-3-results").html(data);});
       $.get('/_example-4', {}, function(data) {$("#example-4-results").html(data);});
-      //$.get('/_example-5', {}, function(data) {$("#example-5-results").html(data);});
+      $.get('/_example-5', {}, function(data) {$("#example-5-results").html(data);});
     });
     </script>
 
@@ -247,18 +248,18 @@
       });
     });
 
-    // $(function() {
-    //   $('example-5-results').bind('click', function() {
-    //     $.get('/_example-5', {
-    //       a: $('#ex5-a').slider('getValue'),
-    //       b: $('#ex5-b').slider('getValue'),
-    //       c: $('#ex5-c').slider('getValue')
-    //     }, function(data) {
-    //       $("#example-5-results").html(data);
-    //     });
-    //     return false;
-    //   });
-    // });
+    $(function() {
+      $('a#example-5').bind('click', function() {
+        $.get('/_example-5', {
+          a: $('#ex5-a').slider('getValue'),
+          b: $('#ex5-b').slider('getValue'),
+          c: $('#ex5-c').slider('getValue')
+        }, function(data) {
+          $("#example-5-results").html(data);
+        });
+        return false;
+      });
+    });
   </script>
 
   <script>
