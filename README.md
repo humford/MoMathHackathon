@@ -13,9 +13,11 @@ The implimentation we built shows the behavior of a second-order differential sy
 
 ## The Submission
 
-Our submission comes in the form of a library of Python functions for graphical representations of PID systems and a web-application with a full interactive tour of PID controllers. The point of our submission is to provide users and museum guests a 
+Our submission comes in the form of a library of Python functions for graphical representations of PID systems and a web-application with a full interactive tour of PID controllers. The mathematical point of our submission is to provide users and museum guests an introduction to the power of control theory through the lens of PID and self-driving cars. 
 
-A short but thorough explanation of your submission. What is the mathematical "point" of your submission? How does it illustrate the mathematical concepts you describe in an engaging way? Who do you envision the target audience to be?
+We illustrate our core mathematical concepts with highly visual and engaging interactive demonstrations of how the different terms in a PID controller add to the whole and accomplish the purpose of autonomous pathfinding. In addition, we endeavour to keep math jargon to an absolute minimum, and to guide our viewers to the important mathematical intuitions of PID controllers though guided questions rather than spelling the answers out. 
+
+Research has shown intuitive introductions to the topics of calculus is often more engaging to young children than algebra and arithmetic. We envision a broad audience, especially with a potential theme of competing self-driving RC cars with PIDs designed by our users. Even so, we'd hope to include more advanced resources with the exhibit for those interested to pursue.
 
 ## Additional Notes
 
@@ -29,13 +31,16 @@ We have provided two methods of interfacing with our web app:
 To host the server locally:
 ``` 
 git clone [this repo]
-cd MoMathHackathon
+cd [project folder]
 pip install -r requirements.txt
 python app.py
 ```
+The local server IP will be provided by Flask.
 
 ### Potential Exhibit
 
-In creating our digital platform and visualizations, we hope to lay the groundwork for a potential full exhibit exploring these same concepts. In a full exhibit, the museum could feature real RC cars 
+In creating our digital platform and visualizations, we hope to lay the groundwork for a potential full exhibit exploring these same concepts. In a full exhibit, the museum could feature real RC cars and allow visitors of all ages to tweak the parameters of their control systems, demostrating how the fundamental concepts of integration and derivation apply to the real world.
 
 ### The Team
+
+Benjamin Church is a rising Columbia junior and Henry is a rising high school senior. We attended high school together and competed on the same VEX robotics team, where we learned the fascinating mathematics, engineering, and computer science behind building competition robots. In addition, we competed together on a finalist team in MIT's Battlecode AI Competition.
