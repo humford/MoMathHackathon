@@ -142,12 +142,13 @@ def Graph(controller, params, line, t_max, initial_pos, line_func):
 
 	print("Time to Finish: " + str(t[i]))
 
-	ax.plot(project(smooth, 0), project(smooth, 1), label = "shoulder", linewidth = 52, color = 'w')
-	ax.plot(project(smooth, 0), project(smooth, 1), label = "road", linewidth = 50, color = 'k')
-	ax.plot(project(smooth, 0), project(smooth, 1), label = "center line", linewidth = 3, linestyle = "--", color = 'y')
+	ax.plot(project(smooth, 0), project(smooth, 1), linewidth = 52, color = 'w')
+	ax.plot(project(smooth, 0), project(smooth, 1), linewidth = 50, color = 'k')
+	ax.plot(project(smooth, 0), project(smooth, 1), linewidth = 3, linestyle = "--", color = 'y')
 	ax.plot(project(sol[:cut], 0), project(sol[:cut], 1), label = "path", color = 'red', linewidth = 2, linestyle = "-")
 	ax.set_xlim([-1.5, length + 1.30])
 	ax.set_ylim([-1.5, vert + 1.5])
+	ax.text(0.9, 1.1, "Time: " + str(round(t[i])) + "(s)")
 	ax.axis('off')
 	return fig
 
@@ -178,9 +179,9 @@ def run_example_NULL():
 	fig = plt.figure(facecolor='#576b0f', figsize = (7,5))
 	ax = fig.add_subplot(111)
 
-	ax.plot(xnew, smooth, label = "shoulder", linewidth = 52, color = 'w')
-	ax.plot(xnew, smooth, label = "road", linewidth = 50, color = 'k')
-	ax.plot(xnew, smooth, label = "center line", linewidth = 3, linestyle = "--", color = 'y')
+	ax.plot(xnew, smooth, linewidth = 52, color = 'w')
+	ax.plot(xnew, smooth, linewidth = 50, color = 'k')
+	ax.plot(xnew, smooth, linewidth = 3, linestyle = "--", color = 'y')
 	ax.set_xlim([-1.5, 11.30])
 	ax.set_ylim([-1.5, 7.5])
 	ax.axis('off')
@@ -230,8 +231,6 @@ def run_example_2(k_i, a):
 		examples_dics[get_key(2, k_i, a)] = Graph(PIDcontroller, params, line, t_max, np.array([0,0]), func)
 		print("DID CALC")
 	return examples_dics[get_key(2, k_i, a)]
-
-road_type_dict3 = dict()
 
 def run_example_3(k_d, a):
 	if not get_key(3, k_d, a) in examples_dics:
