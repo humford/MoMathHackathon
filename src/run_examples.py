@@ -22,7 +22,7 @@
 #
 #
 import matplotlib
-matplotlib.use('Agg')
+#matplotlib.use('Agg')
 from math import *
 from scipy.integrate import odeint
 import numpy as np
@@ -31,14 +31,17 @@ import matplotlib.patheffects as pe
 from time import time
 from operator import add
 from scipy.interpolate import interp1d
+import matplotlib.image as mpimg
 
-max_rate = 2.5
+max_rate = 2.0
 rd_width = 0.75
 max_steps = 1000
 Time_Num = 1000
 N = 30
 length = 10
 vert = 6
+
+car = mpimg.imread('car.png')
 
 def sign(x):
 	if x >= 0:
@@ -132,7 +135,6 @@ def Graph(controller, params, line, t_max, initial_pos, line_func):
 	lables = ["x", "y", r"$\theta$", "v", r"$\int error$"]
 	fig = plt.figure(facecolor='#576b0f', figsize = (7,5))
 	ax = fig.add_subplot(111)
-
 	cut = len(sol)
 
 	for i in range(len(sol)):
@@ -142,14 +144,15 @@ def Graph(controller, params, line, t_max, initial_pos, line_func):
 
 	print("Time to Finish: " + str(t[i]))
 
-	ax.plot(project(smooth, 0), project(smooth, 1), linewidth = 52, color = 'w')
-	ax.plot(project(smooth, 0), project(smooth, 1), linewidth = 50, color = 'k')
-	ax.plot(project(smooth, 0), project(smooth, 1), linewidth = 3, linestyle = "--", color = 'y')
-	ax.plot(project(sol[:cut], 0), project(sol[:cut], 1), label = "path", color = 'red', linewidth = 2, linestyle = "-")
+	ax.plot(project(smooth, 0), project(smooth, 1), linewidth = 40, color = 'w', zorder = -1)
+	ax.plot(project(smooth, 0), project(smooth, 1), linewidth = 38, color = 'k', zorder= -1)
+	ax.plot(project(smooth, 0), project(smooth, 1), linewidth = 3, linestyle = "--", color = 'y', zorder = -1)
+	ax.plot(project(sol[:cut], 0), project(sol[:cut], 1), label = "path", color = 'red', linewidth = 2, linestyle = "-", zorder = -1)
 	ax.set_xlim([-1.5, length + 1.30])
 	ax.set_ylim([-1.5, vert + 1.5])
 	ax.text(0.9, 1.1, "Time: " + str(round(t[i], 1)) + "(s)")
 	ax.axis('off')
+	plt.imshow(car, extent = [-0.5, 0.5, -0.3, 0.3], origin = 'lower left', zorder= 1)
 	return fig
 
 center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
@@ -179,12 +182,13 @@ def run_example_NULL():
 	fig = plt.figure(facecolor='#576b0f', figsize = (7,5))
 	ax = fig.add_subplot(111)
 
-	ax.plot(xnew, smooth, linewidth = 52, color = 'w')
-	ax.plot(xnew, smooth, linewidth = 50, color = 'k')
-	ax.plot(xnew, smooth, linewidth = 3, linestyle = "--", color = 'y')
+	ax.plot(xnew, smooth, linewidth = 52, color = 'w', zorder = -1)
+	ax.plot(xnew, smooth, linewidth = 50, color = 'k', zorder = -1)
+	ax.plot(xnew, smooth, linewidth = 3, linestyle = "--", color = 'y', zorder = -1)
 	ax.set_xlim([-1.5, 11.30])
 	ax.set_ylim([-1.5, 7.5])
 	ax.axis('off')
+	plt.imshow(car, extent = [-0.5, 0.5, -0.3, 0.3], origin = 'lower left', zorder= 1)
 	return fig
 
 
