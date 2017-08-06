@@ -48,7 +48,8 @@ def example5():
 	x = request.args.get('x', None, type=float)
 	y = request.args.get('y', None, type=float)
 	if x == None or y == None:
-		pass
+		x = 0
+		y = 0
 	return mpld3.fig_to_html(run_example_play(a,b,c,x,y))
 
 @app.before_first_request
