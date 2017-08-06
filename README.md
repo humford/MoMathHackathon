@@ -13,7 +13,7 @@ The implimentation we built shows the behavior of a second-order differential sy
 
 ## The Submission
 
-Our submission comes in the form of a library of python functions for graphical representations of PID systems and a web-application with a full tour. The point of our submission is to 
+Our submission comes in the form of a library of Python functions for graphical representations of PID systems and a web-application with a full interactive tour of PID controllers. The point of our submission is to provide users and museum guests a 
 
 A short but thorough explanation of your submission. What is the mathematical "point" of your submission? How does it illustrate the mathematical concepts you describe in an engaging way? Who do you envision the target audience to be?
 
@@ -23,8 +23,14 @@ A short but thorough explanation of your submission. What is the mathematical "p
 
 We have provided two methods of interfacing with our web app:
 1. A hosted web-service on the free Heroku hosting platform: [webapp](https://momathhackathon.herokuapp.com/)
-  
-2. A Flask server to be run 
+  * Since this is a free hosting service, this version is extremely slow and cannot handle many users at a time, it is purely for demonstration purposes
+2. A Python Flask server to be run on either a users computer or a computer hosting an exhibit
+
+To host the server locally:
+``` git clone [this repo]
+cd MoMathHackathon
+pip install -r requirements.txt
+python app.py```
 
 ### Potential Exhibit
 
