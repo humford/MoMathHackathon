@@ -22,7 +22,7 @@
 #
 #
 import matplotlib
-#matplotlib.use('Agg')
+matplotlib.use('Agg')
 from math import *
 from scipy.integrate import odeint
 import numpy as np
