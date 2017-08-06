@@ -130,8 +130,8 @@ def Show_Debug_Stats(controller, params, line, t_max, N):
 	print("Time: " + str(time() - start))
 	lables = ["x", "y", r"$\theta$", "v", r"$\int error$"]
 
-def run_example_1(k_c):
-	params = [k_c, 0, 0]
+def run_example_0(k_c):
+	params = [k_c/15, 0, 0]
 	N = 10
 	Time_Num = 1000
 	length = 10
@@ -141,7 +141,7 @@ def run_example_1(k_c):
 	line = list(map(center_line_func, np.linspace(0, length, N)))
 	return Graph(CRAPcontroller, params, line, t_max, Time_Num, np.array([0,0]))
 
-def run_example_2(k_p):
+def run_example_1(k_p):
 	params = [k_p, 0, 0]
 	N = 10
 	Time_Num = 1000
@@ -152,7 +152,7 @@ def run_example_2(k_p):
 	line = list(map(center_line_func, np.linspace(0, length, N)))
 	return Graph(PIDcontroller, params, line, t_max, Time_Num, np.array([0,0]))
 
-def run_example_3(k_i):
+def run_example_2(k_i):
 	params = [10, k_i, 0]
 	N = 10
 	Time_Num = 1000
