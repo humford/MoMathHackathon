@@ -292,12 +292,8 @@ def run_example_play(k_p, k_i, k_d, mouse_x, mouse_y):
 	return Graph(PIDcontroller, params, line, t_max, np.array([mouse_x, mouse_y]), curve)
 
 def startup_calculations():
-	for k_c in np.linspace(0, 2, 11):
-		run_example_0(k_c)
-	for k_p in np.linspace(0, 10, 11):
-		run_example_1(k_p)
-	for k_i in np.linspace(0, 1, 11):
-		run_example_2(k_i)
-	for k_d in np.linspace(0, 20, 11):
-		run_example_3(k_d)
+	example0_body(0.6, 0)
+	example1_body(5, 0)
+	example2_body(0.2, 0)
+	example3_body(10, 0)
 	print("SETUP COMPLETE")
