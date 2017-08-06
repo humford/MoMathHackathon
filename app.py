@@ -61,7 +61,7 @@ def example5():
 
 @app.before_first_request
 def setup():
-	startup_calculations()
+	#startup_calculations()
 	pass
 
 if __name__ == "__main__":
