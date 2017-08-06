@@ -57,8 +57,7 @@ def main(args):
 	
 	#input()
 	
-	run_example_3(50
-	)
+	run_example_3(1)
 	#plt.savefig("road.png")
 	plt.show()
 

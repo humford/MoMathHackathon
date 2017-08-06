@@ -34,6 +34,9 @@ from operator import add
 max_rate = 2.5
 rd_width = 0.75
 max_steps = 1000
+Time_Num = 1000
+N = 10
+length = 10
 
 def sign(x):
 	if x >= 0:
@@ -151,9 +154,6 @@ def run_example_NULL():
 def run_example_0(k_c):
 	if not "kc:" + str(k_c) in examples_dics:
 		params = [k_c/15, 0, 0]
-		N = 10
-		Time_Num = 10000
-		length = 10
 		t_max = 20
 		center_line_func = lambda x : np.array([x, 6/(1 + exp(-(8*(x-5))))])
 		line = list(map(center_line_func, np.linspace(0, length, N)))
@@ -164,9 +164,6 @@ def run_example_0(k_c):
 def run_example_1(k_p):
 	if not "kp:" + str(k_p) in examples_dics:
 		params = [k_p, 0, 0]
-		N = 10
-		Time_Num = 10000
-		length = 10
 		t_max = 17
 		center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
 		line = list(map(center_line_func, np.linspace(0, length, N)))
@@ -177,9 +174,6 @@ def run_example_1(k_p):
 def run_example_2(k_i):
 	if not "ki:" + str(k_i) in examples_dics:
 		params = [10, k_i/20, 0]
-		N = 10
-		Time_Num = 10000
-		length = 10
 		t_max = 17
 		center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
 		line = list(map(center_line_func, np.linspace(0, length, N)))
@@ -190,9 +184,6 @@ def run_example_2(k_i):
 def run_example_3(k_d):
 	if not "kd:" + str(k_d) in examples_dics:
 		params = [10, 0, 2*k_d]
-		N = 10
-		Time_Num = 10000
-		length = 10
 		t_max = 16
 		center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
 		line = list(map(center_line_func, np.linspace(0, length, N)))
@@ -202,9 +193,6 @@ def run_example_3(k_d):
 
 def run_example_4(k_p, k_i, k_d):
 	params = [k_p, k_i/20, 2*k_d]
-	N = 10
-	Time_Num = 10000
-	length = 10
 	t_max = 16
 	center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
 	line = list(map(center_line_func, np.linspace(0, length, N)))
