@@ -66,6 +66,9 @@ def projection(v, w, p):
 
 def minimum_distance(v, w, p):
 	return sq_dist(p, projection(v, w, p))
+	
+def cross(a, b):
+	return a[0]*b[1] - a[1]*b[0]
 
 def get_error(x, y, theta, v, interror, line):
 
@@ -81,11 +84,19 @@ def get_error(x, y, theta, v, interror, line):
 
 	p = projection(line[best_i], line[best_i+1], my_pos)
 	dist = sqrt(minimum_distance(line[best_i], line[best_i+1], my_pos))
+	
+	v_unit_vec = np.array([cos(theta), sin(theta)])
 
 	if dist == 0:
 		return [0, interror, v]
 	else:
-		return [sign((x - p[0])*sin(theta) - (y - p[1])*cos(theta))*dist, interror, (x - p[0])/dist * v*cos(theta) + (y - p[1])/dist * v*sin(theta)]
+		c = cross((my_pos - p), v_unit_vec)
+		if np.dot((my_pos - p), v_unit_vec) < 0:
+			err = dist*sign(c)*pow(abs(c), 0.25)
+		else:
+			err = dist*sign(c)
+		
+	return [err, interror, sign(err)*v*np.dot((my_pos - p), v_unit_vec)]
 
 
 def car_rate_of_change_function(controller, params, line):
@@ -107,7 +118,7 @@ def Graph(controller, params, line, t_max, N, initial_pos):
 
 	start = time()
 	func = car_rate_of_change_function(controller, params, line)
-	sol = odeint(func, y0, t, mxstep = max_steps)
+	sol = my_odeint(func, y0, t)
 	print("Time: " + str(time() - start))
 	lables = ["x", "y", r"$\theta$", "v", r"$\int error$"]
 	fig = plt.figure(facecolor='#576b0f', figsize = (7,5))
@@ -120,18 +131,9 @@ def Graph(controller, params, line, t_max, N, initial_pos):
 	ax.axis('off')
 	return fig
 
-def Show_Debug_Stats(controller, params, line, t_max, N):
-	y0 = [0, 0, 0, 1, 0]
-	t = np.linspace(0, t_max, N)
-
-	start = time()
-	func = car_rate_of_change_function(controller, params, line)
-	sol = odeint(func, y0, t)
-	print("Time: " + str(time() - start))
-	lables = ["x", "y", r"$\theta$", "v", r"$\int error$"]
 
 def run_example_NULL():
-	params = [k_c/15, 0, 0]
+	params = [0, 0, 0]
 	N = 10
 	Time_Num = 10000
 	length = 10
@@ -145,9 +147,9 @@ def run_example_NULL():
 def run_example_0(k_c):
 	params = [k_c/15, 0, 0]
 	N = 10
-	Time_Num = 1000
+	Time_Num = 10000
 	length = 10
-	t_max = 25
+	t_max = 20
 	center_line_func = lambda x : np.array([x, 6/(1 + exp(-(8*(x-5))))])
 
 	line = list(map(center_line_func, np.linspace(0, length, N)))
@@ -156,20 +158,31 @@ def run_example_0(k_c):
 def run_example_1(k_p):
 	params = [k_p, 0, 0]
 	N = 10
-	Time_Num = 1000
+	Time_Num = 10000
 	length = 10
-	t_max = 20
+	t_max = 17
 	center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
 
 	line = list(map(center_line_func, np.linspace(0, length, N)))
 	return Graph(PIDcontroller, params, line, t_max, Time_Num, np.array([0,0]))
 
 def run_example_2(k_i):
-	params = [10, k_i, 0]
+	params = [10, k_i/20, 0]
 	N = 10
-	Time_Num = 1000
+	Time_Num = 10000
 	length = 10
-	t_max = 20
+	t_max = 17
+	center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
+
+	line = list(map(center_line_func, np.linspace(0, length, N)))
+	return Graph(PIDcontroller, params, line, t_max, Time_Num, np.array([0,0]))
+	
+def run_example_3(k_d):
+	params = [10, 0, 2*k_d]
+	N = 10
+	Time_Num = 10000
+	length = 10
+	t_max = 16
 	center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
 
 	line = list(map(center_line_func, np.linspace(0, length, N)))

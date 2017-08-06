@@ -39,24 +39,25 @@ def Show_Debug_Stats(controller, params, line, t_max, N):
 			plt.plot(t, project(sol, i), label = lables[i])
 
 	plt.plot(t, list(map(lambda x: get_error(x[0], x[1], x[2], x[3], x[4], line)[0], sol)), label = "error")
+	plt.plot(t, list(map(lambda x: get_error(x[0], x[1], x[2], x[3], x[4], line)[2], sol)), label = r"$\frac{d}{dt} error$")
 	p = plt.legend()
 	plt.show()
 
 
 def main(args):
-	params = [10, 0, 0]
+	params = [10, 1, 0]
 	N = 10
-	Time_Num = 5000
+	Time_Num = 10000
 	length = 10
 	t_max = 20
 	center_line_func = lambda x : np.array([x, 6/(1 + exp(-(10*(x-5))))])
 
 	line = list(map(center_line_func, np.linspace(0, length, N)))
-	Show_Debug_Stats(PIDcontroller, params, line, t_max, Time_Num)
+	#Show_Debug_Stats(PIDcontroller, params, line, t_max, Time_Num)
 	
-	input()
+	#input()
 	
-	run_example_1(10)
+	run_example_3(50)
 	#plt.savefig("road.png")
 	plt.show()
 
