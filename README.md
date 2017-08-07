@@ -1,6 +1,6 @@
 # MoMath Hackathon 2017: Control Theory, the Math of Self-Driving Cars
 
-- _Math Exploration: Other Stack_ 
+- _Math Exploration: Other Stack_ - 1st Place Winner
 - Henry Williams and Benjamin Church
 
 ## The Math
